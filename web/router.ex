@@ -19,6 +19,8 @@ defmodule Potion.Router do
     get "/", PageController, :index
     get "/home", HomeController, :index
     get "/home/:messenger", HomeController, :show
+
+    get "/quote", QuoteController, :index
   end
 
   # Other scopes may use custom stacks.
