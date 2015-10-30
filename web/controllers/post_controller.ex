@@ -4,6 +4,7 @@ defmodule Potion.PostController do
   alias Potion.Post
 
   plug :scrub_params, "post" when action in [:create, :update]
+  plug :assign_user
 
   def index(conn, _params) do
     posts = Repo.all(Post)
@@ -22,7 +23,7 @@ defmodule Potion.PostController do
       {:ok, _post} ->
         conn
         |> put_flash(:info, "Post created successfully.")
-        |> redirect(to: post_path(conn, :index))
+        |> redirect(to: user_post_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -47,7 +48,7 @@ defmodule Potion.PostController do
       {:ok, post} ->
         conn
         |> put_flash(:info, "Post updated successfully.")
-        |> redirect(to: post_path(conn, :show, post))
+        |> redirect(to: user_post_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
         render(conn, "edit.html", post: post, changeset: changeset)
     end
@@ -62,6 +63,12 @@ defmodule Potion.PostController do
 
     conn
     |> put_flash(:info, "Post deleted successfully.")
-    |> redirect(to: post_path(conn, :index))
+    |> redirect(to: user_post_path(conn, :index, conn.assigns[:user]))
+  end
+
+  # privates
+  defp assign_user(conn, %{"user_id" => user_id}) do
+    user = Repo.get(Pxblog.User, user_id)
+    assign(conn, :user, user)
   end
 end
