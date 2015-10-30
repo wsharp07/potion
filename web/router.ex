@@ -16,11 +16,18 @@ defmodule Potion.Router do
   scope "/", Potion do
     pipe_through :browser # Use the default browser stack
 
+    # home
     get "/", PageController, :index
     get "/home", HomeController, :index
     get "/home/:messenger", HomeController, :show
 
+    # quote
     get "/quote", QuoteController, :index
+
+    # resources
+    resources "/users", UserController
+    resources "/posts", PostController
+    resources "/sessions", SessionController, only: [:new, :create, :delete]
   end
 
   # Other scopes may use custom stacks.
