@@ -2,6 +2,8 @@ defmodule Potion.Post do
   use Potion.Web, :model
 
   schema "posts" do
+    belongs_to :user, Potion.User
+
     field :title, :string
     field :body, :string
 

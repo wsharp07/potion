@@ -25,8 +25,9 @@ defmodule Potion.Router do
     get "/quote", QuoteController, :index
 
     # resources
-    resources "/users", UserController
-    resources "/posts", PostController
+    resources "/users", UserController do
+      resources "/posts", PostController
+    end
     resources "/sessions", SessionController, only: [:new, :create, :delete]
   end
 

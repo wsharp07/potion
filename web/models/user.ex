@@ -3,6 +3,8 @@ defmodule Potion.User do
   import Comeonin.Bcrypt, only: [hashpwsalt: 1]
 
   schema "users" do
+    has_many :posts, Potion.Post
+
     field :username, :string
     field :email, :string
     field :password_digest, :string
@@ -28,7 +30,7 @@ defmodule Potion.User do
     |> cast(params, @required_fields, @optional_fields)
     |> hash_password
   end
-  
+
   defp hash_password(changeset) do
     if password = get_change(changeset, :password) do
       changeset
