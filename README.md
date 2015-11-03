@@ -1,5 +1,6 @@
 # Potion
 #### A simple blogging platform built with Elixir and Phoenix
+[![Build Status](https://travis-ci.org/wsharp07/potion.svg?branch=master)](https://travis-ci.org/wsharp07/potion)
 
 To start running Potion:
 
