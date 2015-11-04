@@ -4,6 +4,7 @@ defmodule Potion.User do
 
   schema "users" do
     has_many :posts, Potion.Post
+    belongs_to :role, Potion.Role
 
     field :username, :string
     field :email, :string
@@ -16,7 +17,7 @@ defmodule Potion.User do
     field :password_confirmation, :string, virtual: true
   end
 
-  @required_fields ~w(username email password password_confirmation)
+  @required_fields ~w(username email password password_confirmation role_id)
   @optional_fields ~w()
 
   @doc """

@@ -1,14 +1,15 @@
 defmodule Potion.SessionControllerTest do
   use Potion.ConnCase
-  alias Potion.User
+
+  alias Potion.TestHelper
 
   setup do
-    User.changeset(%User{}, %{username: "test", password: "test", password_confirmation: "test", email: "test@test.com"})
-    |> Repo.insert
+    {:ok, role} = TestHelper.create_role(%{name: "User", admin: false})
+    {:ok, _user} = TestHelper.create_user(role, %{username: "test", password: "test", password_confirmation: "test", email: "test@test.com"})
     conn = conn()
     {:ok, conn: conn}
   end
-  
+
   test "shows the login form", %{conn: conn} do
     conn = get conn, session_path(conn, :new)
     assert html_response(conn, 200) =~ "Login"
