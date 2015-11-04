@@ -2,15 +2,17 @@ defmodule Potion.PostControllerTest do
   use Potion.ConnCase
 
   alias Potion.Post
-  alias Potion.User
+  alias Potion.TestHelper
+
   @valid_attrs %{body: "some content", title: "some content"}
   @invalid_attrs %{}
 
   setup do
-    {:ok, user} = create_user
-    conn = conn()
-    |> login_user(user)
-    {:ok, conn: conn, user: user}
+    {:ok, role} = TestHelper.create_role(%{name: "User Role", admin: false})
+    {:ok, user} = TestHelper.create_user(role, %{email: "test@test.com", username: "testuser", password: "test", password_confirmation: "test"})
+    {:ok, post} = TestHelper.create_post(user, %{title: "Test Post", body: "Test Body"})
+    conn = conn() |> login_user(user)
+    {:ok, conn: conn, user: user, role: role, post: post}
   end
 
   test "lists all entries on index", %{conn: conn, user: user} do
@@ -79,10 +81,8 @@ defmodule Potion.PostControllerTest do
     assert conn.halted
   end
 
-  test "redirects when trying to edit a post for a different user", %{conn: conn, user: user} do
-    other_user = User.changeset(%User{}, %{email: "test2@test.com", username: "test2", password: "test", password_confirmation: "test"})
-    |> Repo.insert!
-    post = build_post(user)
+  test "redirects when trying to edit a post for a different user", %{conn: conn, role: role, post: post} do
+    {:ok, other_user} = TestHelper.create_user(role, %{email: "test2@test.com", username: "test2", password: "test", password_confirmation: "test"})
     conn = get conn, user_post_path(conn, :edit, other_user, post)
     assert get_flash(conn, :error) == "You are not authorized to modify that post!"
     assert redirected_to(conn) == page_path(conn, :index)
@@ -90,11 +90,6 @@ defmodule Potion.PostControllerTest do
   end
 
   # private
-  defp create_user do
-    User.changeset(%User{}, %{email: "test@test.com", username: "test", password: "test", password_confirmation: "test"})
-    |> Repo.insert
-  end
-
   defp login_user(conn, user) do
     post conn, session_path(conn, :create), user: %{username: user.username, password: user.password}
   end
