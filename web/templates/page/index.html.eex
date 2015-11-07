@@ -1,8 +1,21 @@
-<div class="jumbotron">
-  <h2>Welcome to Potion!</h2>
-  <p class="lead">A simple blog platform that<br />does not compromise speed and maintainability.</p>
-</div>
-
 <%= if user = current_user(@conn) do %>
+
+  <%= for post <- @posts do %>
+      <h1><%= post.title %></h1>
+      <p><%= post.body %></p>
+      <span class="badge">Posted @ <%= post.inserted_at %></span>
+      <div class="pull-right"><span class="label label-primary"><%= user.username %></span></div>
+      <hr>
+  <% end %>
+
+  <br />
   <a class="btn btn-default" href='/users/<%= user.id %>/posts'>View My Posts</a>
+
+<%= else %>
+
+  <div class="jumbotron">
+    <h2>Welcome to Potion!</h2>
+    <p class="lead">A simple blog platform that<br />does not compromise speed and maintainability.</p>
+  </div>
+
 <% end %>
