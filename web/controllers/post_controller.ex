@@ -2,6 +2,7 @@ defmodule Potion.PostController do
   use Potion.Web, :controller
 
   alias Potion.Post
+  alias Potion.RoleChecker
 
   plug :scrub_params, "post" when action in [:create, :update]
   plug :assign_user
@@ -84,7 +85,7 @@ defmodule Potion.PostController do
 
   defp authorize_user(conn, _) do
     user = get_session(conn, :current_user)
-    if user && Integer.to_string(user.id) == conn.params["user_id"] do
+    if user && (Integer.to_string(user.id) == conn.params["user_id"] || RoleChecker.is_admin?(user)) do
       conn
     else
       conn
