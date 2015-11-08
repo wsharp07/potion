@@ -8,6 +8,8 @@ defmodule Potion.User do
 
     field :username, :string
     field :email, :string
+    field :first_name, :string
+    field :last_name, :string
     field :password_digest, :string
 
     timestamps

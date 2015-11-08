@@ -38,7 +38,7 @@ defmodule Potion.SessionController do
   defp sign_in(user, password, conn) do
     if checkpw(password, user.password_digest) do
       conn
-      |> put_session(:current_user, %{id: user.id, username: user.username, role_id: user.role_id})
+      |> put_session(:current_user, %{id: user.id, username: user.username, role_id: user.role_id, first_name: user.first_name, last_name: user.last_name})
       |> put_flash(:info, "Sign in successful!")
       |> redirect(to: page_path(conn, :index))
     else
