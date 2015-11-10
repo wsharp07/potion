@@ -10,7 +10,7 @@ defmodule Potion.UserController do
   plug :authorize_user when action in [:edit, :update, :delete]
 
   def index(conn, _params) do
-    users = Repo.all(User)
+    users = Repo.all from u in User, preload: [:role]
     render(conn, "index.html", users: users)
   end
 
