@@ -19,7 +19,7 @@ defmodule Potion.User do
     field :password_confirmation, :string, virtual: true
   end
 
-  @required_fields ~w(username email password password_confirmation role_id)
+  @required_fields ~w(username email password first_name last_name password_confirmation role_id)
   @optional_fields ~w()
 
   @doc """
