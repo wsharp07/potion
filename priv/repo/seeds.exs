@@ -14,11 +14,11 @@ find_or_create_role = fn role_name, admin ->
   end
 end
 
-find_or_create_user = fn username, email, role ->
+find_or_create_user = fn first_name, last_name, username, email, role ->
   case Repo.all(from u in User, where: u.username == ^username and u.email == ^email) do
     [] ->
       %User{}
-      |> User.changeset(%{username: username, email: email, password: "test", password_confirmation: "test", role_id: role.id})
+      |> User.changeset(%{first_name: first_name, last_name: last_name, username: username, email: email, password: "test", password_confirmation: "test", role_id: role.id})
       |> Repo.insert!()
     _ ->
       IO.puts "User: #{username} already exists, skipping"
@@ -27,4 +27,4 @@ end
 
 _user_role  = find_or_create_role.("User Role", false)
 admin_role  = find_or_create_role.("Admin Role", true)
-_admin_user = find_or_create_user.("admin", "admin@test.com", admin_role)
+_admin_user = find_or_create_user.("Super", "User", "admin", "admin@test.com", admin_role)
