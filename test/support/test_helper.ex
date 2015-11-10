@@ -12,10 +12,10 @@ defmodule Potion.TestHelper do
     |> Repo.insert
   end
 
-  def create_user(role, %{email: email, username: username, password: password, password_confirmation: password_confirmation}) do
+  def create_user(role, %{first_name: first_name, last_name: last_name, email: email, username: username, password: password, password_confirmation: password_confirmation}) do
     role
     |> build(:users)
-    |> User.changeset(%{email: email, username: username, password: password, password_confirmation: password_confirmation})
+    |> User.changeset(%{first_name: first_name, last_name: last_name, email: email, username: username, password: password, password_confirmation: password_confirmation})
     |> Repo.insert()
   end
 

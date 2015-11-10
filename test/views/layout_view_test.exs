@@ -5,7 +5,7 @@ defmodule Potion.LayoutViewTest do
 
   setup do
     {:ok, role} = TestHelper.create_role(%{name: "User Role", admin: false})
-    {:ok, user} = TestHelper.create_user(role, %{email: "test@test.com", username: "testuser", password: "test", password_confirmation: "test"})
+    {:ok, user} = TestHelper.create_user(role, %{first_name: "test", last_name: "user", email: "test@test.com", username: "testuser", password: "test", password_confirmation: "test"})
     conn = conn()
     {:ok, conn: conn, user: user}
   end

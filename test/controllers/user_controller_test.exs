@@ -4,16 +4,16 @@ defmodule Potion.UserControllerTest do
   alias Potion.User
   alias Potion.TestHelper
 
-  @valid_create_attrs %{email: "some content", password: "some content", password_confirmation: "some content", username: "some content"}
-  @valid_attrs %{email: "some content", username: "some content"}
+  @valid_create_attrs %{first_name: "test", last_name: "user", email: "some content", password: "some content", password_confirmation: "some content", username: "some content"}
+  @valid_attrs %{first_name: "test", last_name: "user", email: "some content", username: "some content"}
   @invalid_attrs %{}
 
   setup do
     {:ok, user_role}     = TestHelper.create_role(%{name: "user", admin: false})
-    {:ok, nonadmin_user} = TestHelper.create_user(user_role, %{email: "nonadmin@test.com", username: "nonadmin", password: "test", password_confirmation: "test"})
+    {:ok, nonadmin_user} = TestHelper.create_user(user_role, %{first_name: "test", last_name: "user", email: "nonadmin@test.com", username: "nonadmin", password: "test", password_confirmation: "test"})
 
     {:ok, admin_role}    = TestHelper.create_role(%{name: "admin", admin: true})
-    {:ok, admin_user}    = TestHelper.create_user(admin_role, %{email: "admin@test.com", username: "admin", password: "test", password_confirmation: "test"})
+    {:ok, admin_user}    = TestHelper.create_user(admin_role, %{first_name: "admin", last_name: "user", email: "admin@test.com", username: "admin", password: "test", password_confirmation: "test"})
 
     conn = conn()
     {:ok, conn: conn, admin_role: admin_role, user_role: user_role, nonadmin_user: nonadmin_user, admin_user: admin_user}

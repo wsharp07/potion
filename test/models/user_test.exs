@@ -4,7 +4,7 @@ defmodule Potion.UserTest do
   alias Potion.User
   alias Potion.TestHelper
 
-  @valid_attrs %{email: "test@test.com", password: "test1234", password_confirmation: "test1234", username: "tuser"}
+  @valid_attrs %{first_name: "test", last_name: "user", email: "test@test.com", password: "test1234", password_confirmation: "test1234", username: "tuser"}
   @invalid_attrs %{}
 
   setup do
