@@ -64,10 +64,9 @@ defmodule Potion.UserControllerTest do
     assert html_response(conn, 200) =~ "New user"
   end
 
-  test "shows chosen resource", %{conn: conn} do
-    user = Repo.insert! %User{}
-    conn = get conn, user_path(conn, :show, user)
-    assert html_response(conn, 200) =~ "Show user"
+  test "shows chosen resource", %{conn: conn, nonadmin_user: nonadmin_user} do
+    conn = get conn, user_path(conn, :show, nonadmin_user)
+    assert html_response(conn, 200) =~ nonadmin_user.username
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
