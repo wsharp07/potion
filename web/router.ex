@@ -19,10 +19,6 @@ defmodule Potion.Router do
     # home
     get "/", PageController, :index
     get "/home", HomeController, :index
-    get "/home/:messenger", HomeController, :show
-
-    # quote
-    get "/quote", QuoteController, :index
 
     # resources
     resources "/users", UserController do
