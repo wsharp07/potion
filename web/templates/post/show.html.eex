@@ -1,18 +1,10 @@
-<h2>Show post</h2>
+<h2><u>Show post</u></h2>
+<br />
+<h4><%= @post.title %></h4>
+<p><%= markdown(@post.body) %></p>
+<span class="badge">Posted @ <%= @post.inserted_at %></span>
 
-<ul>
-
-  <li>
-    <strong>Title:</strong>
-    <%= @post.title %>
-  </li>
-
-  <li>
-    <strong>Body:</strong>
-    <%= @post.body %>
-  </li>
-
-</ul>
-
+<br />
+<br />
 <%= link "Edit", to: user_post_path(@conn, :edit, @user, @post) %>
 <%= link "Back", to: user_post_path(@conn, :index, @user) %>
