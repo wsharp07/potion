@@ -2,7 +2,7 @@
 
   <%= for post <- @posts do %>
       <h1><%= post.title %></h1>
-      <p><%= post.body %></p>
+      <p><%= markdown(post.body) %></p>
       <span class="badge">Posted @ <%= post.inserted_at %></span>
       <div class="pull-right"><span class="label label-primary"><%= user.username %></span></div>
       <hr>
