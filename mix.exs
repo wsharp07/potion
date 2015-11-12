@@ -36,7 +36,11 @@ defmodule Potion.Mixfile do
      {:phoenix_html, "~> 2.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0.3"},
-     {:comeonin, "~> 1.4"}]
+     {:comeonin, "~> 1.4"},
+     {:exrm, "~> 0.19.9"},
+     {:conform, "~> 0.17.0"},
+     {:ex_machina, "~> 0.4"},
+     {:earmark, "~> 0.1.19"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
