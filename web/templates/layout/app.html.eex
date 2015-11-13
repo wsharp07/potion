@@ -8,7 +8,9 @@
     <meta name="author" content="">
 
     <title>Hello Phoenix!</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/bootstrap.css") %>">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">  
+    <script type="text/javascript" src="<%= static_path(@conn, "/js/jquery.js") %>"></script>
   </head>
 
   <body>
