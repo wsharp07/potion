@@ -1,17 +1,17 @@
 defmodule Potion.RoleCheckerTest do
   use Potion.ModelCase
-  alias Potion.TestHelper
+  alias Potion.Factory
   alias Potion.RoleChecker
 
   test "is_admin? is true when user has an admin role" do
-    {:ok, role} = TestHelper.create_role(%{name: "Admin", admin: true})
-    {:ok, user} = TestHelper.create_user(role, %{first_name: "admin", last_name: "user", email: "test@test.com", username: "user", password: "test", password_confirmation: "test"})
+    role = Factory.create(:role, %{admin: true})
+    user = Factory.create(:user, %{role: role})
     assert RoleChecker.is_admin?(user)
   end
 
   test "is_admin? is false when user does not have an admin role" do
-    {:ok, role} = TestHelper.create_role(%{name: "User", admin: false})
-    {:ok, user} = TestHelper.create_user(role, %{first_name: "test", last_name: "user", email: "test@test.com", username: "user", password: "test", password_confirmation: "test"})
+    role = Factory.create(:role, %{admin: false})
+    user = Factory.create(:user, %{role: role})
     refute RoleChecker.is_admin?(user)
   end
 end

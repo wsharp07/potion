@@ -1,11 +1,11 @@
 defmodule Potion.LayoutViewTest do
   use Potion.ConnCase
   alias Potion.LayoutView
-  alias Potion.TestHelper
+  alias Potion.Factory
 
   setup do
-    {:ok, role} = TestHelper.create_role(%{name: "User Role", admin: false})
-    {:ok, user} = TestHelper.create_user(role, %{first_name: "test", last_name: "user", email: "test@test.com", username: "testuser", password: "test", password_confirmation: "test"})
+    role = Factory.create(:role, %{})
+    user = Factory.create(:user, %{role: role})
     conn = conn()
     {:ok, conn: conn, user: user}
   end

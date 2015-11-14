@@ -2,15 +2,15 @@ defmodule Potion.PostControllerTest do
   use Potion.ConnCase
 
   alias Potion.Post
-  alias Potion.TestHelper
+  alias Potion.Factory
 
   @valid_attrs %{body: "some content", title: "some content"}
   @invalid_attrs %{}
 
   setup do
-    {:ok, role} = TestHelper.create_role(%{name: "User Role", admin: false})
-    {:ok, user} = TestHelper.create_user(role, %{first_name: "test", last_name: "user", email: "test@test.com", username: "testuser", password: "test", password_confirmation: "test"})
-    {:ok, post} = TestHelper.create_post(user, %{title: "Test Post", body: "Test Body"})
+    role = Factory.create(:role, %{})
+    user = Factory.create(:user, %{role: role})
+    post = Factory.create(:post, %{user: user})
     conn = conn() |> login_user(user)
     {:ok, conn: conn, user: user, role: role, post: post}
   end
@@ -82,7 +82,7 @@ defmodule Potion.PostControllerTest do
   end
 
   test "redirects when trying to edit a post for a different user", %{conn: conn, role: role, post: post} do
-    {:ok, other_user} = TestHelper.create_user(role, %{first_name: "test", last_name: "user", email: "test2@test.com", username: "test2", password: "test", password_confirmation: "test"})
+    other_user = Factory.create(:user, %{role: role})
     conn = get conn, user_post_path(conn, :edit, other_user, post)
     assert get_flash(conn, :error) == "You are not authorized to modify that post!"
     assert redirected_to(conn) == page_path(conn, :index)
@@ -90,7 +90,7 @@ defmodule Potion.PostControllerTest do
   end
 
   test "redirects when trying to update a post for a different user", %{conn: conn, role: role, post: post} do
-    {:ok, other_user} = TestHelper.create_user(role, %{first_name: "test", last_name: "user", email: "test2@test.com", username: "test2", password: "test", password_confirmation: "test"})
+    other_user = Factory.create(:user, %{role: role})
     conn = put conn, user_post_path(conn, :update, other_user, post), %{"post" => @valid_attrs}
     assert get_flash(conn, :error) == "You are not authorized to modify that post!"
     assert redirected_to(conn) == page_path(conn, :index)
@@ -98,7 +98,7 @@ defmodule Potion.PostControllerTest do
   end
 
   test "redirects when trying to delete a post for a different user", %{conn: conn, role: role, post: post} do
-    {:ok, other_user} = TestHelper.create_user(role, %{first_name: "test", last_name: "user", email: "test2@test.com", username: "test2", password: "test", password_confirmation: "test"})
+    other_user = Factory.create(:user, %{role: role})
     conn = delete conn, user_post_path(conn, :delete, other_user, post)
     assert get_flash(conn, :error) == "You are not authorized to modify that post!"
     assert redirected_to(conn) == page_path(conn, :index)
@@ -107,8 +107,8 @@ defmodule Potion.PostControllerTest do
 
   @tag admin: true
   test "renders form for editing chosen resource when logged in as admin", %{conn: conn, user: user, post: post} do
-    {:ok, role}  = TestHelper.create_role(%{name: "Admin", admin: true})
-    {:ok, admin} = TestHelper.create_user(role, %{first_name: "test", last_name: "user", username: "admin", email: "admin@test.com", password: "test", password_confirmation: "test"})
+    role = Factory.create(:role, %{admin: true})
+    admin = Factory.create(:user, %{role: role})
     conn =
       login_user(conn, admin)
       |> get user_post_path(conn, :edit, user, post)
@@ -117,8 +117,8 @@ defmodule Potion.PostControllerTest do
 
   @tag admin: true
   test "updates chosen resource and redirects when data is valid when logged in as admin", %{conn: conn, user: user, post: post} do
-    {:ok, role}  = TestHelper.create_role(%{name: "Admin", admin: true})
-    {:ok, admin} = TestHelper.create_user(role, %{first_name: "test", last_name: "user", username: "admin", email: "admin@test.com", password: "test", password_confirmation: "test"})
+    role = Factory.create(:role, %{admin: true})
+    admin = Factory.create(:user, %{role: role})
     conn =
       login_user(conn, admin)
       |> put user_post_path(conn, :update, user, post), post: @valid_attrs
@@ -128,8 +128,8 @@ defmodule Potion.PostControllerTest do
 
   @tag admin: true
   test "does not update chosen resource and renders errors when data is invalid when logged in as admin", %{conn: conn, user: user, post: post} do
-    {:ok, role}  = TestHelper.create_role(%{name: "Admin", admin: true})
-    {:ok, admin} = TestHelper.create_user(role, %{first_name: "test", last_name: "user", username: "admin", email: "admin@test.com", password: "test", password_confirmation: "test"})
+    role = Factory.create(:role, %{admin: true})
+    admin = Factory.create(:user, %{role: role})
     conn =
       login_user(conn, admin)
       |> put user_post_path(conn, :update, user, post), post: %{"body" => nil}
@@ -138,8 +138,8 @@ defmodule Potion.PostControllerTest do
 
   @tag admin: true
   test "deletes chosen resource when logged in as admin", %{conn: conn, user: user, post: post} do
-    {:ok, role}  = TestHelper.create_role(%{name: "Admin", admin: true})
-    {:ok, admin} = TestHelper.create_user(role, %{first_name: "test", last_name: "user", username: "admin", email: "admin@test.com", password: "test", password_confirmation: "test"})
+    role = Factory.create(:role, %{admin: true})
+    admin = Factory.create(:user, %{role: role})
     conn =
       login_user(conn, admin)
       |> delete user_post_path(conn, :delete, user, post)

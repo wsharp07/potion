@@ -2,13 +2,13 @@ defmodule Potion.UserTest do
   use Potion.ModelCase
 
   alias Potion.User
-  alias Potion.TestHelper
+  alias Potion.Factory
 
   @valid_attrs %{first_name: "test", last_name: "user", email: "test@test.com", password: "test1234", password_confirmation: "test1234", username: "tuser"}
   @invalid_attrs %{}
 
   setup do
-    {:ok, role}  = TestHelper.create_role(%{name: "user", admin: false})
+    role = Factory.create(:role, %{})
     {:ok, role: role}
   end
 
