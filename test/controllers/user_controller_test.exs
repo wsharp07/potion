@@ -9,11 +9,11 @@ defmodule Potion.UserControllerTest do
   @invalid_attrs %{}
 
   setup do
-    user_role     = Factory.create(:role, %{})
-    nonadmin_user = Factory.create(:user, %{role: user_role})
+    user_role     = Factory.create(:role)
+    nonadmin_user = Factory.create(:user, role: user_role)
 
-    admin_role    = Factory.create(:role, %{admin: true})
-    admin_user    = Factory.create(:user, %{role: admin_role})
+    admin_role    = Factory.create(:role, admin: true)
+    admin_user    = Factory.create(:user, role: admin_role)
 
     conn = conn()
     {:ok, conn: conn, admin_role: admin_role, user_role: user_role, nonadmin_user: nonadmin_user, admin_user: admin_user}

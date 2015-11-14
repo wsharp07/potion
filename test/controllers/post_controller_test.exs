@@ -8,9 +8,9 @@ defmodule Potion.PostControllerTest do
   @invalid_attrs %{}
 
   setup do
-    role = Factory.create(:role, %{})
-    user = Factory.create(:user, %{role: role})
-    post = Factory.create(:post, %{user: user})
+    role = Factory.create(:role)
+    user = Factory.create(:user, role: role)
+    post = Factory.create(:post, user: user)
     conn = conn() |> login_user(user)
     {:ok, conn: conn, user: user, role: role, post: post}
   end

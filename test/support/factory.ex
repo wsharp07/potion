@@ -15,6 +15,8 @@ defmodule Potion.Factory do
   def factory(:user, attrs) do
     %User{
       username: sequence(:username, &"User #{&1}"),
+      first_name: "test",
+      last_name: "user",
       email: "test@test.com",
       password: "test1234",
       password_confirmation: "test1234",
