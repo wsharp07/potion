@@ -18,8 +18,7 @@ defmodule Potion.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Potion, []},
-     applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex, :comeonin]]
+     applications: app_list(Mix.env)]
   end
 
   # Specifies which paths to compile per environment.
@@ -53,4 +52,9 @@ defmodule Potion.Mixfile do
     ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
      "ecto.reset": ["ecto.drop", "ecto.setup"]]
   end
+
+  # define environment applications
+  defp app_list(:test), do: [:ex_machina | app_list]
+  defp app_list(_), do: app_list
+  defp app_list, do: [:phoenix, :phoenix_html, :cowboy, :logger, :phoenix_ecto, :postgrex, :comeonin]
 end
