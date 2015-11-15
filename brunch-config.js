@@ -24,6 +24,7 @@ exports.config = {
     stylesheets: {
       joinTo: {
         "css/app.css": /^(web\/static\/css)/,
+        "css/normalize.css": /^(web\/static\/vendor\/normalize-css\/normalize.css)/,
         "css/bootstrap.css": /^(web\/static\/vendor\/bootstrap\/dist\/css\/bootstrap.min.css)/
       }
       //joinTo: "css/app.css"
