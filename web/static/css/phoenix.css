@@ -1,0 +1,15 @@
+/*!
+ * Bootstrap v3.1.1 (http://getbootstrap.com)
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+/* Phoenix flash messages */
+.alert:empty { display: none; }
+
+img.logo {
+  width: 519px;
+  height: 71px !important;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}

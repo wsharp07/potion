@@ -8,33 +8,53 @@
     <meta name="author" content="">
 
     <title>Hello Phoenix!</title>
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/normalize.css") %>">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/bootstrap.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <script type="text/javascript" src="<%= static_path(@conn, "/js/jquery.js") %>"></script>
   </head>
 
-  <body>
-    <div class="container" role="main">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li>
-          <%= if user = current_user(@conn) do %>
-            <strong><%= user.first_name %></strong>
-            <strong> <%= user.last_name %></strong>
-            <br>
-            <%= link "Log out", to: session_path(@conn, :delete, user.id), method: :delete %>
-          <% else %>
-            <%= link "Log in", to: session_path(@conn, :new) %>
-          <% end %>
-        </li>
-        </ul>
-        <span class="logo"></span>
-      </div>
+  <body class=" no-transition">
+    <div id="wrapper" class="clearfix">
+      <header id="header">
+        <div id="header-wrap">
+          <div class="container clearfix">
+            <div id="logo">
+              <a href="/" class="standard-logo">
+                <img src="/images/phoenix.png" class="logo" alt="Canvas Logo">
+              </a>
+            </div>
+            <nav id="primary-menu" class="style-4">
+              <ul class="sf-js-enabled">
+                <li class="current"><a href="/"><div>Home</div></a></li>
+                <%= if user = current_user(@conn) do %>
+                  <li>
+                    <%= link "Log out", to: session_path(@conn, :delete, user.id), method: :delete %>
+                  </li>
+                <% else %>
+                  <li>
+                    <%= link "Log in", to: session_path(@conn, :new) %>
+                  </li>
+                <% end %>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
+      <section id="content" style="overflow: inherit">
+        <div class="content-wrap">
+          <div class="container clearfix">
+            <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+            <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+            <%= @inner %>
+          </div>
+        </div>
+      </section>
+    </div>
 
-      <%= @inner %>
-
-    </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
