@@ -39,7 +39,9 @@ defmodule Potion.Mixfile do
      {:exrm, "~> 0.19.9"},
      {:conform, "~> 0.17.0"},
      {:ex_machina, "~> 0.4"},
-     {:earmark, "~> 0.1.19"}]
+     {:earmark, "~> 0.1.19"},
+     {:phoenix_calendar, "~> 0.1"},
+     {:calecto, "~> 0.4"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

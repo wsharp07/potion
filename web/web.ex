@@ -19,7 +19,7 @@ defmodule Potion.Web do
   def model do
     quote do
       use Ecto.Model
-
+      use Calecto.Model, usec: true
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
     end

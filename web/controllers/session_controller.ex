@@ -6,7 +6,10 @@ defmodule Potion.SessionController do
   #convert blank input to nil
   plug :scrub_params, "user" when action in [:create]
 
-  def new(conn, _params) do
+  def index(conn, _params) do
+    if get_session(conn, :current_user) != nil do
+      conn |> redirect(to: page_path(conn, :index)) |> halt
+    end
     render conn, "new.html", changeset: User.changeset(%User{})
   end
 
