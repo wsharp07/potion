@@ -22,6 +22,7 @@
   "mimerl": {:hex, :mimerl, "1.0.0"},
   "neotoma": {:hex, :neotoma, "1.7.3"},
   "phoenix": {:hex, :phoenix, "1.0.3"},
+  "phoenix_calendar": {:hex, :phoenix_calendar, "0.1.2"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "1.2.0"},
   "phoenix_html": {:hex, :phoenix_html, "2.2.0"},
   "phoenix_live_reload": {:hex, :phoenix_live_reload, "1.0.1"},
