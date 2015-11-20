@@ -23,7 +23,7 @@ defmodule Potion.Router do
     resources "/users", UserController do
       resources "/posts", PostController
     end
-    resources "/sessions", SessionController, only: [:new, :create, :delete]
+    resources "/login", SessionController, only: [:index, :create, :delete]
   end
 
   # Other scopes may use custom stacks.

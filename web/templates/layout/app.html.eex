@@ -30,12 +30,9 @@
               <ul class="sf-js-enabled">
                 <li class="current"><a href="/"><div>Home</div></a></li>
                 <%= if user = current_user(@conn) do %>
+                  <li><a href="/users"><div>Users</div></a></li>
                   <li>
                     <%= link "Log out", to: session_path(@conn, :delete, user.id), method: :delete %>
-                  </li>
-                <% else %>
-                  <li>
-                    <%= link "Log in", to: session_path(@conn, :new) %>
                   </li>
                 <% end %>
               </ul>
