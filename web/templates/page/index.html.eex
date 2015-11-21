@@ -1,40 +1,30 @@
-<%= if user = current_user(@conn) do %>
+<%= for post <- @posts do %>
+  <div id="posts">
+    <div class="entry clearfix">
 
-  <%= for post <- @posts do %>
-    <div id="posts">
-      <div class="entry clearfix">
-
-        <!-- Post Title -->
-        <div class="entry-title">
-          <h2><%= post.title %></h2>
-        </div>
-
-        <!-- Post Meta -->
-        <ul class="entry-meta clearfix">
-          <li><i class="fa fa-calendar"></i><%= DateExtensions.format_date post.inserted_at %></li>
-          <li><a href="#"><i class="fa fa-user"></i><%= user.username %></a></li>
-          <li><a href="blog-single.html#comments"><i class="fa fa-comments-o"></i> 13 Comments</a></li>
-        </ul>
-
-        <!-- Post Content -->
-        <div class="entry-content">
-          <p><%= markdown(post.body) %></p>
-          <a href="blog-single.html">Read More →</a>
-        </div>
-
+      <!-- Post Title -->
+      <div class="entry-title">
+        <h2><%= post.title %></h2>
       </div>
+
+      <!-- Post Meta -->
+      <ul class="entry-meta clearfix">
+        <li><i class="fa fa-calendar"></i><%= DateExtensions.format_date post.inserted_at %></li>
+        <li><a href="#"><i class="fa fa-user"></i><%= post.user.username %></a></li>
+        <!-- <li><a href="blog-single.html#comments"><i class="fa fa-comments-o"></i> 13 Comments</a></li> -->
+      </ul>
+
+      <!-- Post Content -->
+      <div class="entry-content">
+        <p><%= markdown(post.body) %></p>
+        <a href="/users/<%= post.user.id %>/posts/<%= post.id %>">Read More →</a>
+      </div>
+
     </div>
-  <% end %>
-
-
-
-  <br />
-  <a class="btn btn-default" href='/users/<%= user.id %>/posts'>View My Posts</a>
-
-<%= else %>
-  <div class="jumbotron">
-    <h2>Welcome to Potion!</h2>
-    <p class="lead">A simple blog platform that<br />does not compromise speed and maintainability.</p>
   </div>
+<% end %>
+<br />
 
+<%= if user = current_user(@conn) do %>
+  <a class="btn btn-default" href='/users/<%= user.id %>/posts'>View My Posts</a>
 <% end %>
