@@ -11,7 +11,7 @@
 
         <!-- Post Meta -->
         <ul class="entry-meta clearfix">
-          <li><i class="fa fa-calendar"></i><%= post.inserted_at |> Calendar.Strftime.strftime!("%A, %B %e %Y @ %l:%m%p")%></li>
+          <li><i class="fa fa-calendar"></i><%= DateExtensions.format_date post.inserted_at %></li>
           <li><a href="#"><i class="fa fa-user"></i><%= user.username %></a></li>
           <li><a href="blog-single.html#comments"><i class="fa fa-comments-o"></i> 13 Comments</a></li>
         </ul>
