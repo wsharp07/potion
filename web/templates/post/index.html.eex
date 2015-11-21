@@ -1,5 +1,10 @@
 <h2>Listing posts</h2>
 
+<a href="<%= user_post_path(@conn, :new, @user) %>" class="btn btn-success">
+  <i class="fa fa-plus"></i> New post
+</a>
+<br />
+<br />
 <table class="table">
   <thead>
     <tr>
@@ -16,13 +21,15 @@
       <td><%= markdown(post.body) %></td>
 
       <td class="text-right">
-        <%= link "Show", to: user_post_path(@conn, :show, @user, post), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: user_post_path(@conn, :edit, @user, post), class: "btn btn-default btn-xs" %>
+        <a href="<%= user_post_path(@conn, :show, @user, post) %>" class="btn btn-default">
+          <i class="fa fa-list"></i> Show
+        </a>
+        <a href="<%= user_post_path(@conn, :edit, @user, post) %>" class="btn btn-default">
+          <i class="fa fa-pencil"></i> Edit
+        </a>
         <%= link "Delete", to: user_post_path(@conn, :delete, @user, post), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
-
-<%= link "New post", to: user_post_path(@conn, :new, @user) %>

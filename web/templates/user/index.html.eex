@@ -1,5 +1,10 @@
 <h2>Listing users</h2>
 
+<a href="<%= user_path(@conn, :new) %>" class="btn btn-success">
+  <i class="fa fa-plus"></i> New user
+</a>
+<br />
+<br />
 <table class="table">
   <thead>
     <tr>
@@ -22,13 +27,15 @@
       <td><%= user.role.name %></td>
 
       <td class="text-right">
-        <%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: user_path(@conn, :edit, user), class: "btn btn-default btn-xs" %>
+        <a href="<%= user_path(@conn, :show, user) %>" class="btn btn-default">
+          <i class="fa fa-list"></i> Show
+        </a>
+        <a href="<%= user_path(@conn, :edit, user) %>" class="btn btn-default">
+          <i class="fa fa-pencil"></i> Edit
+        </a>
         <%= link "Delete", to: user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
-
-<%= link "New user", to: user_path(@conn, :new) %>
