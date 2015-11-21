@@ -25,3 +25,6 @@ erl_crash.dump
 
 # Vendor Files
 /web/static/vendor
+
+# Releases
+/rel
