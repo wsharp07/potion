@@ -1,3 +1,4 @@
+<!-- Page Index -->
 <%= for post <- @posts do %>
   <div id="posts">
     <div class="entry clearfix">
