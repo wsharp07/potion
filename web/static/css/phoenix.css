@@ -8,7 +8,6 @@
 .alert:empty { display: none; }
 
 img.logo {
-  width: 519px;
   height: 71px !important;
   margin-top: 10px;
   margin-bottom: 20px;
