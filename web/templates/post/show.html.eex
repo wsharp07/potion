@@ -33,5 +33,11 @@
 
 <br />
 <br />
-<%= link "Edit", to: user_post_path(@conn, :edit, @user, @post) %>
-<%= link "Back", to: user_post_path(@conn, :index, @user) %>
+<%= if can_edit(@conn) == True do %>
+	<a href="<%= user_post_path(@conn, :edit, @user, @post) %>" class="btn btn-default">
+		<i class="fa fa-pencil"></i> Edit
+	</a>
+<% end %>
+<a href="javascript:history.back()" class="btn btn-default">
+	<i class="fa fa-reply"></i> Back
+</a>
