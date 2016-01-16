@@ -111,7 +111,7 @@ defmodule Potion.PostControllerTest do
     admin = Factory.create(:user, %{role: role})
     conn =
       login_user(conn, admin)
-      |> get user_post_path(conn, :edit, user, post)
+      |> (get user_post_path(conn, :edit, user, post))
     assert html_response(conn, 200) =~ "Edit post"
   end
 
@@ -121,7 +121,7 @@ defmodule Potion.PostControllerTest do
     admin = Factory.create(:user, %{role: role})
     conn =
       login_user(conn, admin)
-      |> put user_post_path(conn, :update, user, post), post: @valid_attrs
+      |> (put user_post_path(conn, :update, user, post), post: @valid_attrs)
     assert redirected_to(conn) == user_post_path(conn, :show, user, post)
     assert Repo.get_by(Post, @valid_attrs)
   end
@@ -132,7 +132,7 @@ defmodule Potion.PostControllerTest do
     admin = Factory.create(:user, %{role: role})
     conn =
       login_user(conn, admin)
-      |> put user_post_path(conn, :update, user, post), post: %{"body" => nil}
+      |> (put user_post_path(conn, :update, user, post), post: %{"body" => nil})
     assert html_response(conn, 200) =~ "Edit post"
   end
 
@@ -142,7 +142,7 @@ defmodule Potion.PostControllerTest do
     admin = Factory.create(:user, %{role: role})
     conn =
       login_user(conn, admin)
-      |> delete user_post_path(conn, :delete, user, post)
+      |> (delete user_post_path(conn, :delete, user, post))
     assert redirected_to(conn) == user_post_path(conn, :index, user)
     refute Repo.get(Post, post.id)
   end

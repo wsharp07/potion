@@ -3,8 +3,8 @@ defmodule Potion.Mixfile do
 
   def project do
     [app: :potion,
-     version: "0.0.1",
-     elixir: "~> 1.1",
+     version: "0.0.2",
+     elixir: "~> 1.2",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -29,13 +29,13 @@ defmodule Potion.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.0.3"},
+    [{:phoenix, "~> 1.1.2"},
      {:phoenix_ecto, "~> 1.1"},
-     {:postgrex, ">= 0.0.0"},
-     {:phoenix_html, "~> 2.1"},
+     {:postgrex, ">= 0.7.0"},
+     {:phoenix_html, "~> 2.3"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0.3"},
-     {:comeonin, "~> 1.4"},
+     {:comeonin, "~> 2.0"},
      {:exrm, "~> 0.19.9"},
      {:conform, "~> 0.17.0"},
      {:ex_machina, "~> 0.4"},

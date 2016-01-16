@@ -5,14 +5,14 @@ defmodule Potion.Factory do
   alias Potion.User
   alias Potion.Post
 
-  def factory(:role, _attrs) do
+  def factory(:role) do
     %Role{
       name: sequence(:name, &"Test Role #{&1}"),
       admin: false
     }
   end
 
-  def factory(:user, attrs) do
+  def factory(:user) do
     %User{
       username: sequence(:username, &"User #{&1}"),
       first_name: "test",
@@ -21,15 +21,15 @@ defmodule Potion.Factory do
       password: "test1234",
       password_confirmation: "test1234",
       password_digest: Comeonin.Bcrypt.hashpwsalt("test1234"),
-      role: assoc(attrs, :role)
+      role: build(:role)
     }
   end
 
-  def factory(:post, attrs) do
+  def factory(:post) do
     %Post{
       title: "Some Post",
       body: "And the body of some post",
-      user: assoc(attrs, :user)
+      user: build(:user)
     }
   end
 end

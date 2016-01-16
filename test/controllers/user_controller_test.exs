@@ -135,7 +135,7 @@ defmodule Potion.UserControllerTest do
     user = Factory.create(:user, %{role: user_role})
     conn =
       login_user(conn, user)
-      |> delete user_path(conn, :delete, user)
+      |> (delete user_path(conn, :delete, user))
     assert redirected_to(conn) == user_path(conn, :index)
     refute Repo.get(User, user.id)
   end
@@ -145,7 +145,7 @@ defmodule Potion.UserControllerTest do
     user = Factory.create(:user, %{role: user_role})
     conn =
       login_user(conn, admin_user)
-      |> delete user_path(conn, :delete, user)
+      |> (delete user_path(conn, :delete, user))
     assert redirected_to(conn) == user_path(conn, :index)
     refute Repo.get(User, user.id)
   end
@@ -155,7 +155,7 @@ defmodule Potion.UserControllerTest do
     user = Factory.create(:user, %{role: user_role})
     conn =
       login_user(conn, nonadmin_user)
-      |> delete user_path(conn, :delete, user)
+      |> (delete user_path(conn, :delete, user))
     assert get_flash(conn, :error) == "You are not authorized to modify that user!"
     assert redirected_to(conn) == page_path(conn, :index)
     assert conn.halted
