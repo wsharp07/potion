@@ -18,8 +18,10 @@ defmodule Potion.Web do
 
   def model do
     quote do
-      use Ecto.Model
+      use Ecto.Schema
+
       use Calecto.Model, usec: true
+      import Ecto
       import Ecto.Changeset
       import Ecto.Query, only: [from: 1, from: 2]
     end
@@ -30,10 +32,11 @@ defmodule Potion.Web do
       use Phoenix.Controller
 
       alias Potion.Repo
-      import Ecto.Model
+      import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
 
       import Potion.Router.Helpers
+      import Potion.Gettext
     end
   end
 
@@ -48,6 +51,8 @@ defmodule Potion.Web do
       use Phoenix.HTML
 
       import Potion.Router.Helpers
+      import Potion.ErrorHelpers
+      import Potion.Gettext
     end
   end
 
@@ -62,8 +67,9 @@ defmodule Potion.Web do
       use Phoenix.Channel
 
       alias Potion.Repo
-      import Ecto.Model
+      import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
+      import Potion.Gettext
     end
   end
 
