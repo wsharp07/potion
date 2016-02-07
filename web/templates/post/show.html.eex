@@ -41,3 +41,7 @@
 <a href="javascript:history.back()" class="btn btn-default">
 	<i class="fa fa-reply"></i> Back
 </a>
+
+<!-- Comments -->
+<%= render Potion.CommentView, "form.html", changeset: @comment_changeset,
+	action: post_comment_path(@conn, :create, @post) %>

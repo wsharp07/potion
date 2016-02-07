@@ -3,6 +3,7 @@ defmodule Potion.Post do
 
   schema "posts" do
     belongs_to :user, Potion.User
+    has_many :comments, Potion.Comment
 
     field :title, :string
     field :body, :string
