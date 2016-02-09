@@ -6,7 +6,7 @@
 
 		<!-- Single Post
 		============================================= -->
-		<div class="entry clearfix">
+		<div class="entry clearfix" style="border-bottom: none !important">
 
 			<!-- Entry Title
 			============================================= -->
@@ -28,6 +28,35 @@
         <%= markdown(@post.body) %>
       </div>
     </div>
+
+		<div id="comments" class="clearfix">
+
+			<h3 id="comments-title"><span><%= Enum.count(@post.comments) %></span> Comments</h3>
+
+			<!-- Comments List
+			============================================= -->
+			<ol class="commentlist clearfix">
+
+				<!-- put comments here -->
+				<%= for comment <- @post.comments do %>
+			    <%= render Potion.CommentView, "comment.html", comment: comment %>
+			  <% end %>
+
+			</ol><!-- .commentlist end -->
+
+			<div class="clear"></div>
+
+			<!-- Comment Form
+			============================================= -->
+			<div id="respond" class="clearfix">
+
+				<h3>Leave a <span>Comment</span></h3>
+				<%= render Potion.CommentView, "form.html", changeset: @comment_changeset,
+					action: post_comment_path(@conn, :create, @post) %>
+
+			</div><!-- #respond end -->
+
+		</div>
   </div>
 </div>
 
@@ -41,7 +70,3 @@
 <a href="javascript:history.back()" class="btn btn-default">
 	<i class="fa fa-reply"></i> Back
 </a>
-
-<!-- Comments -->
-<%= render Potion.CommentView, "form.html", changeset: @comment_changeset,
-	action: post_comment_path(@conn, :create, @post) %>
