@@ -42,7 +42,8 @@ defmodule Potion.Mixfile do
      {:ex_machina, "~> 0.6"},
      {:earmark, "~> 0.2.1"},
      {:phoenix_calendar, "~> 0.1"},
-     {:calecto, "~> 0.4"},
+     {:timex, "~>1.0"},
+     {:timex_ecto, "~>0.1"},
      {:exrm, "~> 0.19"}]
   end
 
@@ -60,5 +61,6 @@ defmodule Potion.Mixfile do
   # define environment applications
   defp app_list(:test), do: [:ex_machina | app_list]
   defp app_list(_), do: app_list
-  defp app_list, do: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext, :phoenix_ecto, :postgrex, :comeonin]
+  defp app_list, do: [:phoenix, :phoenix_html, :cowboy, :logger,
+    :gettext, :phoenix_ecto, :postgrex, :comeonin, :tzdata]
 end
