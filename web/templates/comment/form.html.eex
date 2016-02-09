@@ -1,0 +1,25 @@
+<%= form_for @changeset, @action, [class: "clearfix"], fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="col_one_third">
+    <%= label f, :author, class: "control-label" %>
+    <%= text_input f, :author, class: "sm-form-control" %>
+    <%= error_tag f, :author %>
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="col_full">
+    <%= label f, :body, class: "control-label" %>
+    <%= textarea f, :body, class: "sm-form-control", id: "body-editor" %>
+    <%= error_tag f, :body %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "button button-3d nomargin" %>
+  </div>
+<% end %>

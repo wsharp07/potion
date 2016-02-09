@@ -3,10 +3,10 @@ defmodule Potion.Mixfile do
 
   def project do
     [app: :potion,
-     version: "0.0.2",
+     version: "0.0.3",
      elixir: "~> 1.2",
      elixirc_paths: elixirc_paths(Mix.env),
-     compilers: [:phoenix] ++ Mix.compilers,
+     compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      aliases: aliases,
@@ -29,20 +29,21 @@ defmodule Potion.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.1.2"},
-     {:phoenix_ecto, "~> 1.1"},
+    [{:phoenix, "~> 1.1.4"},
+     {:phoenix_ecto, "~> 2.0"},
      {:postgrex, ">= 0.7.0"},
      {:phoenix_html, "~> 2.3"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:cowboy, "~> 1.0.3"},
-     {:comeonin, "~> 2.0"},
+     {:gettext, "~> 0.9"},
+     {:cowboy, "~> 1.0"},
+     {:comeonin, "~> 2.1"},
      {:exrm, "~> 0.19.9"},
-     {:conform, "~> 0.17.0"},
-     {:ex_machina, "~> 0.4"},
-     {:earmark, "~> 0.1.19"},
+     {:conform, "~> 0.17"},
+     {:ex_machina, "~> 0.6"},
+     {:earmark, "~> 0.2.1"},
      {:phoenix_calendar, "~> 0.1"},
      {:calecto, "~> 0.4"},
-     {:exrm, "~> 0.19.9"}]
+     {:exrm, "~> 0.19"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
@@ -59,5 +60,5 @@ defmodule Potion.Mixfile do
   # define environment applications
   defp app_list(:test), do: [:ex_machina | app_list]
   defp app_list(_), do: app_list
-  defp app_list, do: [:phoenix, :phoenix_html, :cowboy, :logger, :phoenix_ecto, :postgrex, :comeonin]
+  defp app_list, do: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext, :phoenix_ecto, :postgrex, :comeonin]
 end

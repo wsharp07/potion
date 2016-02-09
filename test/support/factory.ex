@@ -4,6 +4,7 @@ defmodule Potion.Factory do
   alias Potion.Role
   alias Potion.User
   alias Potion.Post
+  alias Potion.Comment
 
   def factory(:role) do
     %Role{
@@ -30,6 +31,15 @@ defmodule Potion.Factory do
       title: "Some Post",
       body: "And the body of some post",
       user: build(:user)
+    }
+  end
+
+  def factory(:comment) do
+    %Comment {
+      author: "Test User",
+      body: "This is a sample comment",
+      approved: false,
+      post: build(:post)
     }
   end
 end

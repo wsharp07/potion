@@ -16,7 +16,7 @@ defmodule Potion.PostController do
   def new(conn, _params) do
     changeset =
       conn.assigns[:user]
-      |> build(:posts)
+      |> build_assoc(:posts)
       |> Post.changeset()
     render(conn, "new.html", changeset: changeset)
   end
@@ -24,7 +24,7 @@ defmodule Potion.PostController do
   def create(conn, %{"post" => post_params}) do
     changeset =
       conn.assigns[:user]
-      |> build(:posts)
+      |> build_assoc(:posts)
       |> Post.changeset(post_params)
     case Repo.insert(changeset) do
       {:ok, _post} ->
@@ -38,7 +38,13 @@ defmodule Potion.PostController do
 
   def show(conn, %{"id" => id}) do
     post = Repo.get!(assoc(conn.assigns[:user], :posts), id)
-    render(conn, "show.html", post: post)
+      |> Repo.preload(:comments)
+
+    comment_changeset = post
+      |> build_assoc(:comments)
+      |> Potion.Comment.changeset()
+
+    render(conn, "show.html", post: post, comment_changeset: comment_changeset)
   end
 
   def edit(conn, %{"id" => id}) do
