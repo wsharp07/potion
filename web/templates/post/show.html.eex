@@ -29,6 +29,18 @@
       </div>
     </div>
 
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Posted by <span><a href="#"><%= "#{@post.user.first_name} #{@post.user.last_name}" %></a></span></h3>
+			</div>
+			<div class="panel-body">
+				<div class="author-image">
+					<img src="<%= gravatar_url(@post.user.email) %>" alt="" class="img-circle">
+				</div>
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, eveniet, eligendi et nobis neque minus mollitia sit repudiandae ad repellendus recusandae blanditiis praesentium vitae ab sint earum voluptate velit beatae alias fugit accusantium laboriosam nisi reiciendis deleniti tenetur molestiae maxime id quaerat consequatur fugiat aliquam laborum nam aliquid. Consectetur, perferendis?
+			</div>
+		</div>
+
 		<div id="comments" class="clearfix">
 
 			<h3 id="comments-title"><span><%= Enum.count(@post.comments) %></span> Comments</h3>
