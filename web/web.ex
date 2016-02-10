@@ -52,6 +52,7 @@ defmodule Potion.Web do
 
       import Potion.Router.Helpers
       import Potion.ErrorHelpers
+      import Potion.ProfileHelpers
       import Potion.Gettext
     end
   end
