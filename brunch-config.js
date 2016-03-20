@@ -8,6 +8,7 @@ exports.config = {
       // https://github.com/brunch/brunch/blob/stable/docs/config.md#files
       joinTo: {
         "js/app.js": /^(web\/static\/js)|(deps)/,
+        "js/functions.js": /^(web\/static\/js\/functions.js)/,
         "js/jquery.js": /^(web\/static\/vendor\/jquery\/dist\/jquery.min.js)/,
         "js/bootstrap.js": /^(web\/static\/vendor\/bootstrap\/dist\/js\/bootstrap.min.js)/
       }
@@ -23,7 +24,7 @@ exports.config = {
     },
     stylesheets: {
       joinTo: {
-        "css/app.css": /^(web\/static\/css)/,
+        "css/app.css": /^(web\/static\/scss)/,
         "css/normalize.css": /^(web\/static\/vendor\/normalize-css\/normalize.css)/,
         "css/bootstrap.css": /^(web\/static\/vendor\/bootstrap\/dist\/css\/bootstrap.min.css)/
       }
@@ -60,6 +61,9 @@ exports.config = {
     babel: {
       // Do not use ES6 compiler in vendor code
       ignore: [/web\/static\/vendor/]
+    },
+    sass: {
+      mode: 'native'
     }
   },
 

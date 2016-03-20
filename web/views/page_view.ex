@@ -13,7 +13,7 @@ defmodule Potion.PageView do
 
   def get_summary(post_body) do
     post_body
-    |> take_summary(50)
+    |> take_summary(500)
   end
 
   # Private

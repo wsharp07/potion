@@ -16,32 +16,37 @@
     <script type="text/javascript" src="<%= static_path(@conn, "/js/jquery.js") %>"></script>
   </head>
 
-  <body class=" no-transition">
-    <div id="wrapper" class="clearfix">
-      <header id="header">
-        <div id="header-wrap">
-          <div class="container clearfix">
-            <div id="logo">
-              <a href="/" class="standard-logo">
-                <img src="/images/synarii.png" class="logo" alt="Canvas Logo">
-              </a>
-            </div>
-            <nav id="primary-menu" class="style-4">
-              <ul class="sf-js-enabled">
-                <li class="current"><a href="/"><div>Home</div></a></li>
-                <%= if user = current_user(@conn) do %>
-                  <li><a href="/users"><div>Users</div></a></li>
-                  <li>
-                    <%= link "Log out", to: session_path(@conn, :delete, user.id), method: :delete %>
-                  </li>
-                <% end %>
-              </ul>
-            </nav>
-          </div>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">
+            <img src="../images/synarii.png" alt="Synarii"/>
+          </a>
         </div>
-      </header>
-      <section id="content" style="overflow: inherit">
-        <div class="content-wrap">
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="current"><a href="/">Home</a></li>
+            <%= if user = current_user(@conn) do %>
+              <li><a href="/users">Users</a></li>
+              <li>
+                <%= link "Log out", to: session_path(@conn, :delete, user.id), method: :delete %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Content -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
           <div class="container clearfix">
             <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
             <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
@@ -49,9 +54,19 @@
             <%= render @view_module, @view_template, assigns %>
           </div>
         </div>
-      </section>
+      </div>
     </div>
+    <!-- End Content -->
 
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script type="text/javascript">
+      $(window).scroll(function() {
+        if ($(document).scrollTop() > 50) {
+          $('nav').addClass('shrink');
+        } else {
+          $('nav').removeClass('shrink');
+        }
+      });
+    </script>
   </body>
 </html>
