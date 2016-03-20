@@ -1,79 +1,58 @@
-<!-- Post Content
-============================================= -->
-<div class="postcontent nobottommargin clearfix">
+<article class="post">
+	<header class="post-header">
+		<span class="post-meta">
+			<i class="fa fa-calendar"></i> <%= DateExtensions.format_date @post.inserted_at %>
+		</span>
+		<h2 class="post-title">
+			<%= @post.title %>
+		</h2>
+	</header>
+	<div class="post-content">
+		<%= markdown(@post.body) %>
+	</div>
+</article>
 
-	<div class="single-post nobottommargin">
-
-		<!-- Single Post
-		============================================= -->
-		<div class="entry clearfix" style="border-bottom: none !important">
-
-			<!-- Entry Title
-			============================================= -->
-			<div class="entry-title">
-				<h2><%= @post.title %></h2>
-			</div><!-- .entry-title end -->
-
-			<!-- Entry Meta
-			============================================= -->
-			<ul class="entry-meta clearfix">
-				<li><i class="fa fa-calendar"></i><%= DateExtensions.format_date @post.inserted_at %></li>
-				<li><a href="#"><i class="fa fa-user"></i> admin</a></li>
-				<!-- <li><a href="#"><i class="icon-comments"></i> 43 Comments</a></li> -->
-			</ul><!-- .entry-meta end -->
-
-			<!-- Entry Content
-			============================================= -->
-			<div class="entry-content notopmargin">
-        <%= markdown(@post.body) %>
-      </div>
-    </div>
-
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Posted by <span><a href="#"><%= "#{@post.user.first_name} #{@post.user.last_name}" %></a></span></h3>
-			</div>
-			<div class="panel-body">
-				<div class="author-image">
-					<img src="<%= gravatar_url(@post.user.email) %>" alt="" class="img-circle">
-				</div>
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, eveniet, eligendi et nobis neque minus mollitia sit repudiandae ad repellendus recusandae blanditiis praesentium vitae ab sint earum voluptate velit beatae alias fugit accusantium laboriosam nisi reiciendis deleniti tenetur molestiae maxime id quaerat consequatur fugiat aliquam laborum nam aliquid. Consectetur, perferendis?
-			</div>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Posted by <span><a href="#"><%= "#{@post.user.first_name} #{@post.user.last_name}" %></a></span></h3>
+	</div>
+	<div class="panel-body">
+		<div class="author-image">
+			<img src="<%= gravatar_url(@post.user.email) %>" alt="" class="img-circle">
 		</div>
-
-		<div id="comments" class="clearfix">
-
-			<h3 id="comments-title"><span><%= Enum.count(@post.comments) %></span> Comments</h3>
-
-			<!-- Comments List
-			============================================= -->
-			<ol class="commentlist clearfix">
-
-				<!-- put comments here -->
-				<%= for comment <- @post.comments do %>
-			    <%= render Potion.CommentView, "comment.html", comment: comment %>
-			  <% end %>
-
-			</ol><!-- .commentlist end -->
-
-			<div class="clear"></div>
-
-			<!-- Comment Form
-			============================================= -->
-			<div id="respond" class="clearfix">
-
-				<h3>Leave a <span>Comment</span></h3>
-				<%= render Potion.CommentView, "form.html", changeset: @comment_changeset,
-					action: post_comment_path(@conn, :create, @post) %>
-
-			</div><!-- #respond end -->
-
-		</div>
-  </div>
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, eveniet, eligendi et nobis neque minus mollitia sit repudiandae ad repellendus recusandae blanditiis praesentium vitae ab sint earum voluptate velit beatae alias fugit accusantium laboriosam nisi reiciendis deleniti tenetur molestiae maxime id quaerat consequatur fugiat aliquam laborum nam aliquid. Consectetur, perferendis?
+	</div>
 </div>
 
-<br />
-<br />
+<div id="comments" class="clearfix">
+
+	<h3 id="comments-title"><span><%= Enum.count(@post.comments) %></span> Comments</h3>
+
+	<!-- Comments List
+	============================================= -->
+	<ol class="commentlist clearfix">
+
+		<!-- put comments here -->
+		<%= for comment <- @post.comments do %>
+	    <%= render Potion.CommentView, "comment.html", comment: comment %>
+	  <% end %>
+
+	</ol><!-- .commentlist end -->
+
+	<div class="clear"></div>
+
+	<!-- Comment Form
+	============================================= -->
+	<div id="respond" class="clearfix">
+
+		<h3>Leave a <span>Comment</span></h3>
+		<%= render Potion.CommentView, "form.html", changeset: @comment_changeset,
+			action: post_comment_path(@conn, :create, @post) %>
+
+	</div><!-- #respond end -->
+
+</div>
+
 <%= if can_edit(@conn) == True do %>
 	<a href="<%= user_post_path(@conn, :edit, @user, @post) %>" class="btn btn-default">
 		<i class="fa fa-pencil"></i> Edit
