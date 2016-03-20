@@ -39,7 +39,7 @@ defmodule Potion.PostControllerTest do
   test "shows chosen resource", %{conn: conn, user: user} do
     post = build_post(user)
     conn = get conn, user_post_path(conn, :show, user, post)
-    assert html_response(conn, 200) =~ "single-post"
+    assert html_response(conn, 200) =~ "Single-Post"
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn, user: user} do
