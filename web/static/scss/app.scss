@@ -1,0 +1,112 @@
+$icon-font-path: '../fonts/';
+$default-height: 80px;
+$shrink-height: 35px;
+$post-border-color: #F5F5F5;
+$post-meta-color: #999;
+
+@mixin vertical-align($position: relative) {
+  position: $position;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+@mixin smooth-transition() {
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.clearfix {
+  overflow: auto;
+}
+
+/* Space out content a bit */
+body {
+  padding-top: $default-height - 20px;
+  padding-bottom: 20px;
+}
+
+h2 {
+  font-size: 3.2rem;
+  line-height: 1.2em;
+  letter-spacing: -1px;
+  text-indent: -2px;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.navbar-nav li a {
+ line-height: 50px;
+}
+
+nav.navbar {
+  .navbar-header {
+    height: $default-height;
+  }
+
+  .navbar-brand {
+    img {
+      width: 40%;
+      @include smooth-transition();
+    }  
+  }
+
+  ul.nav {
+    height: $default-height;
+  }
+
+  @include smooth-transition();
+}
+
+nav.navbar.shrink {
+  .navbar-header {
+    height: $shrink-height;
+  }
+
+  .navbar-brand {
+    img {
+      @include smooth-transition();
+      width: 20%;
+    }    
+  }
+
+  ul.nav {
+    height: $shrink-height;
+    @include vertical-align();
+  }
+
+  @include smooth-transition();
+}
+
+/* Posts */
+.post {
+  position: relative;
+  margin: 5em auto;
+  padding-bottom: 3rem;
+  word-break: break-word;
+
+  header.post-header {
+    .post-title {
+      margin: 0;
+    }
+
+    .post-meta {
+      display: inline-block;
+      font-size: 1.4rem;
+      line-height: 1;
+      color: $post-meta-color;
+    }
+  } 
+
+  .post-content {
+    position: relative;
+    margin-top: 30px;
+  }
+}
+
