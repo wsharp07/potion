@@ -23,7 +23,7 @@ $post-meta-color: #999;
 
 /* Space out content a bit */
 body {
-  padding-top: $default-height - 20px;
+  padding-top: $default-height;
   padding-bottom: 20px;
 }
 
@@ -54,7 +54,7 @@ nav.navbar {
     img {
       width: 40%;
       @include smooth-transition();
-    }  
+    }
   }
 
   ul.nav {
@@ -73,7 +73,7 @@ nav.navbar.shrink {
     img {
       @include smooth-transition();
       width: 20%;
-    }    
+    }
   }
 
   ul.nav {
@@ -87,7 +87,7 @@ nav.navbar.shrink {
 /* Posts */
 .post {
   position: relative;
-  margin: 5em auto;
+  margin: 3em auto;
   padding-bottom: 3rem;
   word-break: break-word;
 
@@ -102,11 +102,10 @@ nav.navbar.shrink {
       line-height: 1;
       color: $post-meta-color;
     }
-  } 
+  }
 
   .post-content {
     position: relative;
     margin-top: 30px;
   }
 }
-

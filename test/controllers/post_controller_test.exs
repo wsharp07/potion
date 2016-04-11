@@ -11,8 +11,14 @@ defmodule Potion.PostControllerTest do
     role = Factory.create(:role)
     user = Factory.create(:user, role: role)
     post = Factory.create(:post, user: user)
+
+    admin_role = Factory.create(:role, admin: true)
+    admin_user = Factory.create(:user, role: admin_role)
+
+    other_user = Factory.create(:user, role: role)
+
     conn = conn() |> login_user(user)
-    {:ok, conn: conn, user: user, role: role, post: post}
+    {:ok, conn: conn, user: user, role: role, post: post, admin: admin_user, other_user: other_user}
   end
 
   test "lists all entries on index", %{conn: conn, user: user} do
@@ -105,6 +111,35 @@ defmodule Potion.PostControllerTest do
     assert conn.halted
   end
 
+  test "when logged in as the author, shows chosen resource with author flag set to true", %{conn: conn, user: user} do
+    post = build_post(user)
+    conn = login_user(conn, user) |> get(user_post_path(conn, :show, user, post))
+    assert html_response(conn, 200) =~ "Single-Post"
+    assert conn.assigns[:author_or_admin]
+  end
+
+  @tag admin: true
+  test "when logged in as an admin, shows chosen resource with author flag set to true", %{conn: conn, user: user, admin: admin} do
+    post = build_post(user)
+    conn = login_user(conn, admin) |> get(user_post_path(conn, :show, user, post))
+    assert html_response(conn, 200) =~ "Single-Post"
+    assert conn.assigns[:author_or_admin]
+  end
+
+  test "when not logged in, shows chosen resource with author flag set to false", %{conn: conn, user: user} do
+    post = build_post(user)
+    conn = logout_user(conn, user) |> get(user_post_path(conn, :show, user, post))
+    assert html_response(conn, 200) =~ "Single-Post"
+    refute conn.assigns[:author_or_admin]
+  end
+
+  test "when logged in as a different user, shows chosen resource with author flag set to false", %{conn: conn, user: user, other_user: other_user} do
+    post = build_post(user)
+    conn = login_user(conn, other_user) |> get(user_post_path(conn, :show, user, post))
+    assert html_response(conn, 200) =~ "Single-Post"
+    refute conn.assigns[:author_or_admin]
+  end
+
   @tag admin: true
   test "renders form for editing chosen resource when logged in as admin", %{conn: conn, user: user, post: post} do
     role = Factory.create(:role, %{admin: true})
@@ -150,6 +185,10 @@ defmodule Potion.PostControllerTest do
   # private
   defp login_user(conn, user) do
     post conn, session_path(conn, :create), user: %{username: user.username, password: user.password}
+  end
+
+  defp logout_user(conn, user) do
+    delete conn, session_path(conn, :delete, user)
   end
 
   defp build_post(user) do

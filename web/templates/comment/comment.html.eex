@@ -1,28 +1,45 @@
-<li class="comment even thread-even depth-1" id="li-comment-<%= @comment.id %>">
+<%= if @conn.assigns[:author_or_admin] || @comment.approved do %>
+  <li class="comment even thread-even depth-1" id="li-comment-<%= @comment.id %>">
 
-  <div id="comment-<%= @comment.id %>" class="comment-wrap clearfix">
+    <div id="comment-<%= @comment.id %>" class="comment-wrap clearfix">
 
-    <div class="comment-meta">
-      <div class="comment-author vcard">
-        <span class="comment-avatar clearfix">
-          <img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60">
-        </span>
+      <div class="comment-meta">
+        <div class="comment-author vcard">
+          <span class="comment-avatar clearfix">
+            <img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60">
+          </span>
+        </div>
       </div>
+      <div class="col-xs-4 text-right">
+        <%= if @author_or_admin do %>
+          <%= unless @comment.approved do %>
+            <%= form_for @conn, post_comment_path(@conn, :update, @post, @comment), [method: :put, name: :comment, style: "display: inline;"], fn f -> %>
+              <%= hidden_input f, :approved, value: "true" %>
+              <%= submit "Approve", class: "btn btn-xs btn-primary approve" %>
+            <% end %>
+          <% end %>
+          <%= link "Delete",
+                method: :delete,
+                to: post_comment_path(@conn, :delete, @post, @comment),
+                class: "btn btn-xs btn-danger delete",
+                data: [confirm: "Are you sure you want to delete this comment?"]
+          %>
+        <% end %>
+      </div>
+      <div class="comment-content clearfix">
+        <div class="comment-author"><%= @comment.author %>
+          <span>
+            <a href="#" title="Permalink to this comment"><%= DateExtensions.format_date @comment.inserted_at %></a>
+          </span>
+        </div>
+        <p> <%= @comment.body %> </p>
+
+        <a class="comment-reply-link" href="#"><i class="icon-reply"></i></a>
+
+      </div>
+
+      <div class="clear"></div>
     </div>
 
-    <div class="comment-content clearfix">
-      <div class="comment-author"><%= @comment.author %>
-        <span>
-          <a href="#" title="Permalink to this comment"><%= DateExtensions.format_date @comment.inserted_at %></a>
-        </span>
-      </div>
-      <p> <%= @comment.body %> </p>
-
-      <a class="comment-reply-link" href="#"><i class="icon-reply"></i></a>
-
-    </div>
-
-    <div class="clear"></div>
-  </div>
-
-</li>
+  </li>
+<% end %>
