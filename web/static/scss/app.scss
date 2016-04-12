@@ -64,6 +64,18 @@ nav.navbar {
   @include smooth-transition();
 }
 
+// Support form links in the nav
+nav form a {
+  color: #777;
+  padding: 15px 15px;
+  display: block;
+
+  &:hover {
+    color: #000;
+    text-decoration: none;
+  }
+}
+
 nav.navbar.shrink {
   .navbar-header {
     height: $shrink-height;
