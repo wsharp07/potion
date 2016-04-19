@@ -2,33 +2,12 @@ exports.config = {
   // See http://brunch.io/#documentation for docs.
   files: {
     javascripts: {
-      //joinTo: "js/app.js"
-
-      // To use a separate vendor.js bundle, specify two files path
-      // https://github.com/brunch/brunch/blob/stable/docs/config.md#files
-      joinTo: {
-        "js/app.js": /^(web\/static\/js)|(deps)/,
-        "js/functions.js": /^(web\/static\/js\/functions.js)/,
-        "js/jquery.js": /^(web\/static\/vendor\/jquery\/dist\/jquery.min.js)/,
-        "js/bootstrap.js": /^(web\/static\/vendor\/bootstrap\/dist\/js\/bootstrap.min.js)/
-      }
-      //
-      // To change the order of concatenation of files, explicitly mention here
-      // https://github.com/brunch/brunch/tree/master/docs#concatenation
-      // order: {
-      //   before: [
-      //     "web/static/vendor/js/jquery-2.1.1.js",
-      //     "web/static/vendor/js/bootstrap.min.js"
-      //   ]
-      // }
+      joinTo: "js/app.js"
     },
     stylesheets: {
       joinTo: {
-        "css/app.css": /^(web\/static\/scss)/,
-        "css/normalize.css": /^(web\/static\/vendor\/normalize-css\/normalize.css)/,
-        "css/bootstrap.css": /^(web\/static\/vendor\/bootstrap\/dist\/css\/bootstrap.min.css)/
+        'css/app.css': /^(web\/static\/scss|node_modules\/bootstrap\/dist\/css)/
       }
-      //joinTo: "css/app.css"
     },
     templates: {
       joinTo: "js/app.js"
@@ -46,8 +25,6 @@ exports.config = {
   paths: {
     // Dependencies and current project directories to watch
     watched: [
-      "deps/phoenix/web/static",
-      "deps/phoenix_html/web/static",
       "web/static",
       "test/static"
     ],
@@ -60,10 +37,15 @@ exports.config = {
   plugins: {
     babel: {
       // Do not use ES6 compiler in vendor code
-      ignore: [/web\/static\/vendor/]
+      ignore: [/bower_components/]
     },
     sass: {
-      mode: 'native'
+      options: {
+        includePaths: [
+          'web/static/scss'
+        ]
+      },
+      debug: 'comments'
     }
   },
 
@@ -74,6 +56,17 @@ exports.config = {
   },
 
   npm: {
-    enabled: true
+    enabled: true,
+    // Whitelist the npm deps to be pulled in as front-end assets.
+    // All other deps in package.json will be excluded from the bundle.
+    whitelist: ["phoenix", "phoenix_html", "jquery", "bootstrap", "moment"],
+    styles: {
+      bootstrap: ['dist/css/bootstrap.css']
+    },
+    globals: {
+      $: 'jquery',
+      jQuery: 'jquery',
+      moment: 'moment'
+    }
   }
 };

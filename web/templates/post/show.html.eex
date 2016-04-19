@@ -25,22 +25,15 @@
 	</div>
 </div>
 
-<div id="comments" class="clearfix">
+<div class="comments clearfix">
 
 	<h3 id="comments-title"><span><%= Enum.count(@post.comments) %></span> Comments</h3>
 
-	<!-- Comments List
-	============================================= -->
-	<ol class="commentlist clearfix">
-
-		<!-- put comments here -->
-		<%= for comment <- @post.comments do %>
-	    <%= render Potion.CommentView, "comment.html", comment: comment,
-				author_or_admin: @conn.assigns[:author_or_admin], conn: @conn,
-				post: @post %>
-	  <% end %>
-
-	</ol><!-- .commentlist end -->
+	<%= for comment <- @post.comments do %>
+		<%= render Potion.CommentView, "comment.html", comment: comment,
+			author_or_admin: @conn.assigns[:author_or_admin], conn: @conn,
+			post: @post %>
+	<% end %>
 
 	<div class="clear"></div>
 

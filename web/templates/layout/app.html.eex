@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <%= if user = current_user(@conn) do %>
+      <%= tag :meta, name: "channel_token", content: Phoenix.Token.sign(@conn, "user", user.id) %>
+    <% end %>
 
     <title>Hello Phoenix!</title>
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/normalize.css") %>">
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/bootstrap.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-    <script type="text/javascript" src="<%= static_path(@conn, "/js/jquery.js") %>"></script>
   </head>
 
   <body>
