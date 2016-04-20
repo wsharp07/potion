@@ -13,6 +13,7 @@
     <title>Hello Phoenix!</title>
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
@@ -59,7 +60,11 @@
     <!-- End Content -->
 
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
     <script type="text/javascript">
+      $(document).ready(function(){
+        hljs.initHighlightingOnLoad();
+      });
       $(window).scroll(function() {
         if ($(document).scrollTop() > 50) {
           $('nav').addClass('shrink');
