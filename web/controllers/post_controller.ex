@@ -5,12 +5,15 @@ defmodule Potion.PostController do
   alias Potion.RoleChecker
 
   plug :scrub_params, "post" when action in [:create, :update]
-  plug :assign_user 
+  plug :assign_user
   plug :authorize_user when action in [:new, :create, :update, :edit, :delete]
   plug :set_authorization_flag when action in [:show]
 
   def index(conn, _params) do
-    posts = Repo.all(assoc(conn.assigns[:user], :posts))
+    posts = Repo.all(from p in Post,
+                       limit: 5,
+                       order_by: [desc: :id],
+                       preload: [:user])
     render(conn, "index.html", posts: posts)
   end
 

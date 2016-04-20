@@ -7,7 +7,10 @@ defmodule Potion.PageController do
 
   def index(conn, _params) do
     current_user = Plug.Conn.get_session(conn, :current_user)
-    posts = Repo.all from p in Post, preload: [:user]
+    posts = Repo.all(from p in Post,
+                       limit: 5,
+                       order_by: [desc: :id],
+                       preload: [:user])
     if (current_user != nil) do
       user = Repo.get!(User, current_user.id)
     end
