@@ -5,7 +5,7 @@
 </a>
 <br />
 <br />
-<table class="table">
+<table class="table table-striped custab">
   <thead>
     <tr>
       <th>First Name</th>
@@ -24,7 +24,13 @@
       <td><%= user.last_name %></td>
       <td><%= user.username %></td>
       <td><%= user.email %></td>
-      <td><%= user.role.name %></td>
+      <td>
+        <%= if user.role.name === "Admin Role" do %>
+          <span class="label label-primary"> Admin </span>
+        <%= else %>
+          <span class="label label-default"> User </span>
+        <%= end %>
+      </td>
 
       <td class="text-right">
         <a href="<%= user_path(@conn, :show, user) %>" class="btn btn-default">
@@ -33,7 +39,7 @@
         <a href="<%= user_path(@conn, :edit, user) %>" class="btn btn-default">
           <i class="fa fa-pencil"></i> Edit
         </a>
-        <%= link "Delete", to: user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <%= link raw('<i class="fa fa-trash-o"></i> Delete'), to: user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger" %>
       </td>
     </tr>
 <% end %>

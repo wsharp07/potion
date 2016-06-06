@@ -35,6 +35,5 @@ defmodule Potion.PageView do
     else
       "#{result}..."
     end
-
   end
 end

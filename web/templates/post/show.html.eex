@@ -1,5 +1,15 @@
 <!-- Single-Post -->
 <article class="post">
+	<div style="padding-bottom: 10px;">
+		<%= if can_edit(@conn) == True do %>
+			<a href="<%= user_post_path(@conn, :edit, @user, @post) %>" class="btn btn-default">
+				<i class="fa fa-pencil"></i> Edit
+			</a>
+		<% end %>
+		<a href="javascript:history.back()" class="btn btn-default">
+			<i class="fa fa-reply"></i> Back
+		</a>
+	</div>
 	<header class="post-header">
 		<span class="post-meta">
 			<i class="fa fa-calendar"></i> <%= DateExtensions.format_date @post.inserted_at %>
@@ -25,9 +35,17 @@
 	</div>
 </div>
 
-<div class="comments clearfix">
+<!-- Leave a Comment Form -->
+<div>
+	<h3>Leave a <span>Comment</span></h3>
+	<%= render Potion.CommentView, "form.html", changeset: @comment_changeset,
+		action: post_comment_path(@conn, :create, @post) %>
+</div>
 
-	<h3 id="comments-title"><span><%= Enum.count(@post.comments) %></span> Comments</h3>
+<!-- Comments list -->
+<div class="comments">
+
+	<h3 id="comments-title"><span><%= "#{humanize_number_string(@num_approved_comments, 'Comment')}" %></span></h3>
 
 	<%= for comment <- @post.comments do %>
 		<%= render Potion.CommentView, "comment.html", comment: comment,
@@ -35,25 +53,4 @@
 			post: @post %>
 	<% end %>
 
-	<div class="clear"></div>
-
-	<!-- Comment Form
-	============================================= -->
-	<div id="respond" class="clearfix">
-
-		<h3>Leave a <span>Comment</span></h3>
-		<%= render Potion.CommentView, "form.html", changeset: @comment_changeset,
-			action: post_comment_path(@conn, :create, @post) %>
-
-	</div><!-- #respond end -->
-
 </div>
-
-<%= if can_edit(@conn) == True do %>
-	<a href="<%= user_post_path(@conn, :edit, @user, @post) %>" class="btn btn-default">
-		<i class="fa fa-pencil"></i> Edit
-	</a>
-<% end %>
-<a href="javascript:history.back()" class="btn btn-default">
-	<i class="fa fa-reply"></i> Back
-</a>

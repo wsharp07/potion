@@ -49,7 +49,14 @@ defmodule Potion.PostController do
       |> build_assoc(:comments)
       |> Potion.Comment.changeset()
 
-    render(conn, "show.html", post: post, comment_changeset: comment_changeset)
+    num_approved_comments = post.comments
+      |> Enum.filter(fn x -> x.approved == true end)
+      |> Enum.count
+
+    render(conn, "show.html",
+      post: post,
+      comment_changeset: comment_changeset,
+      num_approved_comments: num_approved_comments)
   end
 
   def edit(conn, %{"id" => id}) do

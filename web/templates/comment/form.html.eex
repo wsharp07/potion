@@ -5,21 +5,22 @@
     </div>
   <% end %>
 
-  <div class="col_one_third">
+  <div class="form-group">
     <%= label f, :author, class: "control-label" %>
-    <%= text_input f, :author, class: "sm-form-control" %>
+    <%= text_input f, :author, class: "form-control", placeholder: "Your name" %>
     <%= error_tag f, :author %>
   </div>
 
-  <div class="clear"></div>
-
-  <div class="col_full">
+  <div class="form-group">
     <%= label f, :body, class: "control-label" %>
-    <%= textarea f, :body, class: "sm-form-control" %>
+    <%= textarea f, :body, class: "form-control", placeholder: "Your comments" %>
     <%= error_tag f, :body %>
   </div>
 
   <div class="form-group">
-    <%= submit "Submit", class: "btn btn-primary create-comment" %>
+    <button class="btn btn-primary" type="submit">
+      <i class="fa fa-comment"></i> Comment
+    </button>
   </div>
+
 <% end %>

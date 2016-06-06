@@ -28,7 +28,7 @@ defmodule Potion.CommentController do
       # Error on insert
       {:error, changeset} ->
         render(conn, Potion.PostView, "show.html", post: post, user: post.user,
-        comment_changeset: changeset)
+        comment_changeset: changeset, num_approved_comments: 0)
     end
   end
 

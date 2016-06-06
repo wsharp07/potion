@@ -1,2 +1,12 @@
-<h2>Login</h2>
-<%= render "form.html", changeset: @changeset, action: session_path(@conn, :create) %>
+<div class="row" style="padding-top: 10%;">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"> Sign In </h3>
+      </div>
+      <div class="panel-body">
+        <%= render "form.html", changeset: @changeset, action: session_path(@conn, :create) %>
+      </div>
+    </div>
+  </div>
+</div>

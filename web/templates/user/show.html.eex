@@ -1,4 +1,4 @@
-<div class="panel panel-info">
+<div class="panel panel-info" style="margin-top: 10px">
   <div class="panel-heading">
     <h3 class="panel-title"><%= @user.first_name %> <%= @user.last_name %></h3>
   </div>
@@ -30,5 +30,9 @@
   <div class="panel-footer"></div>
 </div>
 
-<%= link "Edit", to: user_path(@conn, :edit, @user) %>
-<%= link "Back", to: user_path(@conn, :index) %>
+<a href="<%= user_path(@conn, :edit, @user) %>" class="btn btn-default">
+  <i class="fa fa-pencil"></i> Edit
+</a>
+<a href="<%= user_path(@conn, :index) %>" class="btn btn-default">
+  <i class="fa fa-reply"></i> Back
+</a>

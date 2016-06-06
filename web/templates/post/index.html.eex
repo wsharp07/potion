@@ -10,24 +10,23 @@
     <tr>
       <th>Title</th>
       <th>Body</th>
-
       <th></th>
     </tr>
   </thead>
   <tbody>
 <%= for post <- @posts do %>
     <tr>
-      <td><%= post.title %></td>
-      <td><%= markdown(post.body) %></td>
+      <td style="min-width:150px;"><%= post.title %></td>
+      <td><%= markdown(get_summary(post.body)) %></td>
 
-      <td class="text-right">
+      <td style="text-align:left;">
         <a href="<%= user_post_path(@conn, :show, @user, post) %>" class="btn btn-default">
           <i class="fa fa-list"></i> Show
         </a>
         <a href="<%= user_post_path(@conn, :edit, @user, post) %>" class="btn btn-default">
           <i class="fa fa-pencil"></i> Edit
         </a>
-        <%= link "Delete", to: user_post_path(@conn, :delete, @user, post), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <%= link raw('<i class="fa fa-trash-o"></i> Delete'), to: user_post_path(@conn, :delete, @user, post), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger" %>
       </td>
     </tr>
 <% end %>

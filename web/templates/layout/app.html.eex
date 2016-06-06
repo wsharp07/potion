@@ -6,51 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <%= if user = current_user(@conn) do %>
-      <%= tag :meta, name: "channel_token", content: Phoenix.Token.sign(@conn, "user", user.id) %>
+    <%= if current_user = @conn.assigns[:current_user] do %>
+      <%= tag :meta, name: "channel_token", content: Phoenix.Token.sign(@conn, "user", current_user.id) %>
     <% end %>
 
     <title>Hello Phoenix!</title>
-    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css">
+
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- Styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
+
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">
-            <img src="/images/synarii.png" alt="Synarii"/>
-          </a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li class="current"><a href="/">Home</a></li>
-            <%= if user = current_user(@conn) do %>
-              <li><a href="/users">Users</a></li>
-              <li>
-                <%= link "Log out", to: session_path(@conn, :delete, user.id), method: :delete %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <!-- Navigation -->
+    <%= render "navigation.html", conn: @conn %>
+    <!-- End Navigation -->
     <!-- Content -->
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
           <div class="container clearfix">
-            <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-            <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+            <%= render "alerts.html", conn: @conn %>
 
             <%= render @view_module, @view_template, assigns %>
           </div>

@@ -12,7 +12,7 @@ defmodule Potion.SessionControllerTest do
 
   test "shows the login form", %{conn: conn} do
     conn = get conn, session_path(conn, :index)
-    assert html_response(conn, 200) =~ "Login"
+    assert html_response(conn, 200) =~ "Sign In"
   end
 
   test "creates a new user session for a valid user", %{conn: conn, user: user} do

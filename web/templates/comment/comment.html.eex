@@ -1,39 +1,38 @@
 <input type="hidden" id="post-id" value="<%= @post.id %>">
 <%= if @conn.assigns[:author_or_admin] || @comment.approved do %>
-  <li class="comment even thread-even depth-1" id="li-comment-<%= @comment.id %>">
+  <li class="comment" id="li-comment-<%= @comment.id %>">
 
-    <div id="comment-<%= @comment.id %>" class="comment comment-wrap clearfix" data-comment-id="<%= @comment.id %>">
-
-      <div class="comment-meta">
-        <div class="comment-author vcard">
-          <span class="comment-avatar clearfix">
-            <img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" class="avatar avatar-60 photo avatar-default" height="60" width="60">
-          </span>
+    <div id="comment-<%= @comment.id %>" class="comment" data-comment-id="<%= @comment.id %>">
+      <div class="comment-header">
+        <div class="comment-avatar">
+          <img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60" height="60" width="60">
+        </div>
+        <div class="comment-author">
+          <h2><%= @comment.author %></h2>
+          <a href="#" title="Permalink to this comment"><%= DateExtensions.format_date @comment.inserted_at %></a>
         </div>
       </div>
-      <div class="col-xs-4 text-right">
-        <%= if @conn.assigns[:author_or_admin] do %>
-          <%= unless @comment.approved do %>
-            <button class="btn btn-xs btn-primary approve">Approve</button>
-          <% end %>
-          <button class="btn btn-xs btn-danger delete">Delete</button>
-        <% end %>
-      </div>
-      <div class="comment-content clearfix">
-        <div>
-          <p class="comment-author"><%= @comment.author %></p>
-          <span>
-            <a href="#" title="Permalink to this comment"><%= DateExtensions.format_date @comment.inserted_at %></a>
-          </span>
-        </div>
+      <br />
+
+      <div class="comment-content">
         <div class="col-xs-12 comment-body">
           <p> <%= @comment.body %> </p>
         </div>
         <a class="comment-reply-link" href="#"><i class="icon-reply"></i></a>
 
       </div>
-
-      <div class="clear"></div>
+      <div class="comment-controls">
+        <%= if @conn.assigns[:author_or_admin] do %>
+          <%= unless @comment.approved do %>
+            <button class="btn btn-xs btn-success approve">
+              <i class="fa fa-check"></i> Approve
+            </button>
+          <% end %>
+          <button class="btn btn-xs btn-danger delete">
+            <i class="fa fa-trash"></i> Delete
+          </button>
+        <% end %>
+      </div>
     </div>
 
   </li>
