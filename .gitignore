@@ -31,3 +31,6 @@ erl_crash.dump
 
 # Coverage
 /cover
+
+# VSCode
+.vscode
