@@ -6,14 +6,14 @@ defmodule Potion.Factory do
   alias Potion.Post
   alias Potion.Comment
 
-  def factory(:role) do
+  def role_factory do
     %Role{
       name: sequence(:name, &"Test Role #{&1}"),
       admin: false
     }
   end
 
-  def factory(:user) do
+  def user_factory do
     %User{
       username: sequence(:username, &"User #{&1}"),
       first_name: "test",
@@ -26,7 +26,7 @@ defmodule Potion.Factory do
     }
   end
 
-  def factory(:post) do
+  def post_factory do
     %Post{
       title: "Some Post",
       body: "And the body of some post",
@@ -34,7 +34,7 @@ defmodule Potion.Factory do
     }
   end
 
-  def factory(:comment) do
+  def comment_factory do
     %Comment {
       author: "Test User",
       body: "This is a sample comment",

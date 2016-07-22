@@ -13,8 +13,9 @@ use Mix.Config
 # which you typically run after static files are built.
 config :potion, Potion.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "example.com", port: 4000],
-  cache_static_manifest: "priv/static/manifest.json"
+  url: [host: "example.com", port: 8888],
+  cache_static_manifest: "priv/static/manifest.json",
+  server: true
 
 # Do not print debug messages in production
 config :logger, level: :info
@@ -51,12 +52,12 @@ config :comeonin, bcrypt_log_rounds: 14
 # If you are doing OTP releases, you need to instruct Phoenix
 # to start the server for all endpoints:
 #
-#     config :phoenix, :serve_endpoints, true
+config :phoenix, :serve_endpoints, true
 #
 # Alternatively, you can configure exactly which server to
 # start per endpoint:
 #
-#     config :potion, Potion.Endpoint, server: true
+#config :potion, Potion.Endpoint, server: true
 #
 
 # Finally import the config/prod.secret.exs

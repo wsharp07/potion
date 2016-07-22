@@ -8,9 +8,9 @@ defmodule Potion.CommentHelperTest do
   alias Potion.CommentHelper
 
   setup do
-    user    = Factory.create(:user)
-    post    = Factory.create(:post, user: user)
-    comment = Factory.create(:comment, post: post, approved: false)
+    user    = Factory.insert(:user)
+    post    = Factory.insert(:post, user: user)
+    comment = Factory.insert(:comment, post: post, approved: false)
     fake_socket = %{assigns: %{user: user.id}}
 
     {:ok, user: user, post: post, comment: comment, socket: fake_socket}

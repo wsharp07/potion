@@ -22,7 +22,7 @@ defmodule Potion.ChannelCase do
 
       alias Potion.Repo
       import Ecto.Model
-      import Ecto.Query, only: [from: 2]
+      import Ecto.Query
 
 
       # The default endpoint for testing
@@ -31,8 +31,9 @@ defmodule Potion.ChannelCase do
   end
 
   setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Potion.Repo)
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Potion.Repo, [])
+      Ecto.Adapters.SQL.Sandbox.mode(Potion.Repo, {:shared, self()})
     end
 
     :ok

@@ -6,9 +6,9 @@ defmodule Potion.CommentChannelTest do
   alias Potion.Factory
 
   setup do
-    user    = Factory.create(:user)
-    post    = Factory.create(:post, user: user)
-    comment = Factory.create(:comment, post: post, approved: false)
+    user    = Factory.insert(:user)
+    post    = Factory.insert(:post, user: user)
+    comment = Factory.insert(:comment, post: post, approved: false)
 
     {:ok, _, socket} =
       socket("user_id", %{user: user.id})

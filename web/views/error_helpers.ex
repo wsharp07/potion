@@ -26,10 +26,11 @@ defmodule Potion.ErrorHelpers do
     #
     #     dngettext "errors", "1 file", "%{count} files", count
     #
-    Gettext.dngettext(Potion.Gettext, "errors", msg, msg, opts[:count], opts)
+    if count = opts[:count] do
+      Gettext.dngettext(Potion.Gettext, "errors", msg, msg, count, opts)
+    else
+      Gettext.dgettext(Potion.Gettext, "errors", msg, opts)
+    end
   end
 
-  def translate_error(msg) do
-    Gettext.dgettext(Potion.Gettext, "errors", msg)
-  end
 end

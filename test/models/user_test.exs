@@ -8,7 +8,7 @@ defmodule Potion.UserTest do
   @invalid_attrs %{}
 
   setup do
-    role = Factory.create(:role)
+    role = Factory.insert(:role)
     {:ok, role: role}
   end
 

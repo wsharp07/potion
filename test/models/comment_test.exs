@@ -18,7 +18,7 @@ defmodule Potion.CommentTest do
   end
 
   test "creates a comment associated with a post" do
-    comment = Factory.create(:comment)
+    comment = Factory.insert(:comment)
     assert comment.post_id
   end
 

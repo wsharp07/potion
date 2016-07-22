@@ -4,9 +4,9 @@ defmodule Potion.LayoutViewTest do
   alias Potion.Factory
 
   setup do
-    role = Factory.create(:role, %{})
-    user = Factory.create(:user, %{role: role})
-    conn = conn()
+    role = Factory.insert(:role, %{})
+    user = Factory.insert(:user, %{role: role})
+    conn = build_conn()
     {:ok, conn: conn, user: user}
   end
 
@@ -15,7 +15,7 @@ defmodule Potion.LayoutViewTest do
     assert LayoutView.current_user(conn)
   end
 
-  test "current user returns nothing if there is no user in the session", %{user: user} do
+  test "current user returns nothing if there is no user in the session", %{conn: conn, user: user} do
     conn = delete conn, session_path(conn, :delete, user)
     refute LayoutView.current_user(conn)
   end

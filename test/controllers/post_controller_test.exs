@@ -8,16 +8,16 @@ defmodule Potion.PostControllerTest do
   @invalid_attrs %{}
 
   setup do
-    role = Factory.create(:role)
-    user = Factory.create(:user, role: role)
-    post = Factory.create(:post, user: user)
+    role = Factory.insert(:role)
+    user = Factory.insert(:user, role: role)
+    post = Factory.insert(:post, user: user)
 
-    admin_role = Factory.create(:role, admin: true)
-    admin_user = Factory.create(:user, role: admin_role)
+    admin_role = Factory.insert(:role, admin: true)
+    admin_user = Factory.insert(:user, role: admin_role)
 
-    other_user = Factory.create(:user, role: role)
+    other_user = Factory.insert(:user, role: role)
 
-    conn = conn() |> login_user(user)
+    conn = build_conn() |> login_user(user)
     {:ok, conn: conn, user: user, role: role, post: post, admin: admin_user, other_user: other_user}
   end
 
@@ -88,7 +88,7 @@ defmodule Potion.PostControllerTest do
   end
 
   test "redirects when trying to edit a post for a different user", %{conn: conn, role: role, post: post} do
-    other_user = Factory.create(:user, %{role: role})
+    other_user = Factory.insert(:user, %{role: role})
     conn = get conn, user_post_path(conn, :edit, other_user, post)
     assert get_flash(conn, :error) == "You are not authorized to modify that post!"
     assert redirected_to(conn) == page_path(conn, :index)
@@ -96,7 +96,7 @@ defmodule Potion.PostControllerTest do
   end
 
   test "redirects when trying to update a post for a different user", %{conn: conn, role: role, post: post} do
-    other_user = Factory.create(:user, %{role: role})
+    other_user = Factory.insert(:user, %{role: role})
     conn = put conn, user_post_path(conn, :update, other_user, post), %{"post" => @valid_attrs}
     assert get_flash(conn, :error) == "You are not authorized to modify that post!"
     assert redirected_to(conn) == page_path(conn, :index)
@@ -104,7 +104,7 @@ defmodule Potion.PostControllerTest do
   end
 
   test "redirects when trying to delete a post for a different user", %{conn: conn, role: role, post: post} do
-    other_user = Factory.create(:user, %{role: role})
+    other_user = Factory.insert(:user, %{role: role})
     conn = delete conn, user_post_path(conn, :delete, other_user, post)
     assert get_flash(conn, :error) == "You are not authorized to modify that post!"
     assert redirected_to(conn) == page_path(conn, :index)
@@ -142,8 +142,8 @@ defmodule Potion.PostControllerTest do
 
   @tag admin: true
   test "renders form for editing chosen resource when logged in as admin", %{conn: conn, user: user, post: post} do
-    role = Factory.create(:role, %{admin: true})
-    admin = Factory.create(:user, %{role: role})
+    role = Factory.insert(:role, %{admin: true})
+    admin = Factory.insert(:user, %{role: role})
     conn =
       login_user(conn, admin)
       |> (get user_post_path(conn, :edit, user, post))
@@ -152,8 +152,8 @@ defmodule Potion.PostControllerTest do
 
   @tag admin: true
   test "updates chosen resource and redirects when data is valid when logged in as admin", %{conn: conn, user: user, post: post} do
-    role = Factory.create(:role, %{admin: true})
-    admin = Factory.create(:user, %{role: role})
+    role = Factory.insert(:role, %{admin: true})
+    admin = Factory.insert(:user, %{role: role})
     conn =
       login_user(conn, admin)
       |> (put user_post_path(conn, :update, user, post), post: @valid_attrs)
@@ -163,8 +163,8 @@ defmodule Potion.PostControllerTest do
 
   @tag admin: true
   test "does not update chosen resource and renders errors when data is invalid when logged in as admin", %{conn: conn, user: user, post: post} do
-    role = Factory.create(:role, %{admin: true})
-    admin = Factory.create(:user, %{role: role})
+    role = Factory.insert(:role, %{admin: true})
+    admin = Factory.insert(:user, %{role: role})
     conn =
       login_user(conn, admin)
       |> (put user_post_path(conn, :update, user, post), post: %{"body" => nil})
@@ -173,8 +173,8 @@ defmodule Potion.PostControllerTest do
 
   @tag admin: true
   test "deletes chosen resource when logged in as admin", %{conn: conn, user: user, post: post} do
-    role = Factory.create(:role, %{admin: true})
-    admin = Factory.create(:user, %{role: role})
+    role = Factory.insert(:role, %{admin: true})
+    admin = Factory.insert(:user, %{role: role})
     conn =
       login_user(conn, admin)
       |> (delete user_post_path(conn, :delete, user, post))
@@ -194,7 +194,7 @@ defmodule Potion.PostControllerTest do
   defp build_post(user) do
     changeset =
       user
-      |> build(:posts)
+      |> Ecto.build_assoc(:posts)
       |> Post.changeset(@valid_attrs)
     Repo.insert!(changeset)
   end

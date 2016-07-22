@@ -4,10 +4,10 @@ defmodule Potion.RoleCheckerTest do
   alias Potion.RoleChecker
 
   setup do
-    admin_role = Factory.create(:role, admin: true)
-    user_role = Factory.create(:role, admin: false)
-    admin_user = Factory.create(:user, role: admin_role)
-    regular_user = Factory.create(:user, role: user_role)
+    admin_role = Factory.insert(:role, admin: true)
+    user_role = Factory.insert(:role, admin: false)
+    admin_user = Factory.insert(:user, role: admin_role)
+    regular_user = Factory.insert(:user, role: user_role)
     {:ok, admin_user: admin_user, regular_user: regular_user}
   end
 

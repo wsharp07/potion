@@ -1,6 +1,6 @@
 defmodule Potion.PostController do
   use Potion.Web, :controller
-
+  require Logger
   alias Potion.Post
   alias Potion.RoleChecker
 
@@ -36,6 +36,7 @@ defmodule Potion.PostController do
         |> put_flash(:info, "Post created successfully.")
         |> redirect(to: user_post_path(conn, :index, conn.assigns[:user]))
       {:error, changeset} ->
+        Logger.debug changeset
         render(conn, "new.html", changeset: changeset)
     end
   end

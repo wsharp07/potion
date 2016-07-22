@@ -21,8 +21,8 @@ defmodule Potion.ConnCase do
       use Phoenix.ConnTest
 
       alias Potion.Repo
-      import Ecto.Model
-      import Ecto.Query, only: [from: 2]
+      import Ecto
+      import Ecto.Query
 
       import Potion.Router.Helpers
 
@@ -32,10 +32,11 @@ defmodule Potion.ConnCase do
   end
 
   setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Potion.Repo)
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Potion.Repo, [])
+      Ecto.Adapters.SQL.Sandbox.mode(Potion.Repo, {:shared, self()})
     end
 
-    {:ok, conn: Phoenix.ConnTest.conn()}
+    {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

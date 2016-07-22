@@ -4,9 +4,9 @@ defmodule Potion.SessionControllerTest do
   alias Potion.Factory
 
   setup do
-    role = Factory.create(:role)
-    user = Factory.create(:user, role: role)
-    conn = conn()
+    role = Factory.insert(:role)
+    user = Factory.insert(:user, role: role)
+    conn = build_conn()
     {:ok, conn: conn, user: user}
   end
 

@@ -9,6 +9,6 @@ defmodule DateExtensions do
 
   def format_date(input) do
     input
-      |> Date.local
+      |> Timex.local
   end
 end
